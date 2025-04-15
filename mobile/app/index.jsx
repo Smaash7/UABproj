@@ -7,8 +7,8 @@ export default function Index() {
     <View style={styles.container}>
       <Text style={styles.title}>1ockowec</Text>
 
-      <Link href="/signup">Signup </Link>
-      <Link href="/login">Login </Link>
+      <Link href="/(auth)/signup">Signup</Link>
+      <Link href="/(auth)">Login</Link>
     </View>
   );
 }
