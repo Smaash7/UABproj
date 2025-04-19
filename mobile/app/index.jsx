@@ -1,23 +1,59 @@
-import { Image, Text, View, StyleSheet } from "react-native";
-import { Link } from "expo-router";
+import { useEffect } from "react";
+import { View, Text, Image, ActivityIndicator, StyleSheet } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import { useRouter } from "expo-router";
 
+export default function Welcome() {
+  const router = useRouter();
 
-export default function Index() {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      router.replace("/(auth)"); // ou "/(auth)/signup" se quiseres
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>1ockowec</Text>
-
-      <Link href="/(auth)/signup">Signup</Link>
-      <Link href="/(auth)">Login</Link>
-    </View>
+    <LinearGradient
+      colors={["#ffe0ec", "#ffc3d9", "#ffa6c9"]}
+      style={styles.container}
+    >
+      <Image
+        source={require("../assets/images/logo.png")} // muda para o teu ficheiro
+        style={styles.logo}
+        resizeMode="contain"
+      />
+      <Text style={styles.title}>Welcome to our app!</Text>
+      <Text style={styles.subtitle}> Please wait while we load the app...</Text>
+      <ActivityIndicator size="large" color="#ff5c8d" style={styles.loader} />
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
     alignItems: "center",
+    justifyContent: "center",
   },
-  title: { color: "red" },
+  logo: {
+    width: 200,
+    height: 200,
+    marginBottom: 30,
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: "bold",
+    color: "#b3005e",
+    marginBottom: 8,
+  },
+  subtitle: {
+    fontSize: 16,
+    color: "#8b0051",
+    marginBottom: 30,
+  },
+  loader: {
+    marginTop: 20,
+  },
 });
