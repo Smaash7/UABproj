@@ -29,7 +29,7 @@ router.post("/", protectRoute, async (req, res) => {
     res.status(201).json(newBarber);
   } catch (error) {
     console.log("Error creating barber", error.message);
-    res.status(500).json({ message: "Token is not valid" });
+    res.status(500).json({ message: error.message || "Internal Server Error" });
   }
 });
 

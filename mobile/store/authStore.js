@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { API_URL } from '../constants/api';
 
 export const useAuthStore = create((set) => ({
   user: null,
@@ -10,9 +11,7 @@ export const useAuthStore = create((set) => ({
     set({ isLoading: true });
 
     try {
-      const response = await fetch("http://192.168.64.111:3000/api/auth/register", {
-        // se estiveres no telemóvel, usa esta linha acima com IP local
-        // para produção: https://react-native-barber.onrender.com/api/auth/register
+      const response = await fetch(`${API_URL}/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -40,34 +39,33 @@ export const useAuthStore = create((set) => ({
 
   login: async (email, password) => {
     set({ isLoading: true });
-  
+
     try {
-      const response = await fetch("http://192.168.64.111:3000/api/auth/login", {
+      const response = await fetch(`${API_URL}/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
       });
-  
+
       const data = await response.json();
-  
+      console.log("LOGIN DATA", data);
+
       if (!response.ok) throw new Error(data.message || "Login failed");
-  
+
       await AsyncStorage.setItem("user", JSON.stringify(data.user));
       await AsyncStorage.setItem("token", data.token);
-  
+
       set({ token: data.token, user: data.user, isLoading: false });
-  
+
       return { success: true };
-  
+
     } catch (error) {
       set({ isLoading: false });
       return { success: false, message: error.message };
     }
   },
-  
-    
 
   checkAuth: async () => {
     try {
@@ -81,10 +79,9 @@ export const useAuthStore = create((set) => ({
     }
   },
 
-    logout: async () => {
-        await AsyncStorage.removeItem("user");
-        await AsyncStorage.removeItem("token");
-        set({ token: null, user: null });
-    },
-
+  logout: async () => {
+    await AsyncStorage.removeItem("user");
+    await AsyncStorage.removeItem("token");
+    set({ token: null, user: null });
+  },
 }));
