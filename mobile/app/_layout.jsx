@@ -12,16 +12,21 @@ export default function RootLayout() {
 
   const {checkAuth, user, token} = useAuthStore()
 
-  useEffect(() => {
-    checkAuth();
-  },[])
+  // useEffect(() => {
+  //   checkAuth();
+  // },[])
 
   //handle navigation based on auth state
   useEffect(() => {
     const inAuthScreen = segments[0] === "(auth)";
     const isSignedIn = user && token;
 
-    if(!isSignedIn && inAuthScreen) router.replace("/(auth)");
+    if(!isSignedIn && inAuthScreen) {
+      if (segments[0] !== "(auth)") {
+        console.log("User not signed in, redirecting to login screen...");
+        router.replace("/(auth)");
+      }
+    }
     else if(isSignedIn && inAuthScreen) router.replace("/(tabs)");
 
   },[user,token,segments])
