@@ -128,14 +128,14 @@ export default function Signup() {
               {isLoading ? (
                 <ActivityIndicator color="#fff" />
               ) : (
-                <Text style={styles.buttonText}>Sign Up</Text>
+                <Text style={styles.buttonText}>Sign up</Text>
               )}
             </TouchableOpacity>
 
             {/* FOOTER */}
             <View style={styles.footer}>
               <Text style={styles.footerText}>Already have an account? </Text>
-              <TouchableOpacity onPress={() => router.back()}>
+              <TouchableOpacity onPress={() => router.push("/(auth)")}>
                 <Text style={styles.link}>Log In</Text>
               </TouchableOpacity>
             </View>
