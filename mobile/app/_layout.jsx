@@ -24,7 +24,6 @@ export default function RootLayout() {
     if(!isSignedIn && inAuthScreen) router.replace("/(auth)");
     else if(isSignedIn && inAuthScreen) router.replace("/(tabs)");
 
-
   },[user,token,segments])
 
 

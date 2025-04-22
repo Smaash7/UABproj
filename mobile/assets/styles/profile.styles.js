@@ -137,7 +137,10 @@ const styles = StyleSheet.create({
   },
   deleteButton: {
     padding: 8,
-    justifyContent: "center",
+    backgroundColor: COLORS.danger,
+    borderRadius: 8,
+    alignSelf: "flex-end", // <-- Isto alinha à direita dentro de um container com flexDirection: "row"
+    marginLeft: "auto"      // <-- Isto empurra o botão para a direita
   },
   emptyContainer: {
     alignItems: "center",
