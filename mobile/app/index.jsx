@@ -7,13 +7,10 @@ export default function Welcome() {
   const router = useRouter();
 
   useEffect(() => {
-    console.log("Redirecting in 5s...");
-    console.log("Redirecting to signup page...");
     const timer = setTimeout(() => {
-      router.replace("/(auth)/signup");
+      router.replace("/(auth)"); // ou "/(auth)/signup" se quiseres
     }, 5000);
 
-  
     return () => clearTimeout(timer);
   }, []);
 

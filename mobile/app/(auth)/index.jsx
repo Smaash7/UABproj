@@ -6,14 +6,14 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   KeyboardAvoidingView,
-  Alert,
-  Platform,
+  Alert, 
+  Platform
 } from "react-native";
 import React, { useState } from "react";
 import styles from "../../assets/styles/login.styles";
 import { Ionicons } from "@expo/vector-icons";
 import COLORS from "../../constants/colors";
-import { useRouter } from "expo-router"; // ✅ useRouter em vez de Link
+import { Link } from "expo-router";
 
 import { useAuthStore } from "../../store/authStore";
 
@@ -21,17 +21,11 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const { isLoading, login } = useAuthStore();
-  const router = useRouter(); // ✅ necessário para navegação
+  const {isLoading, login} = useAuthStore();
 
   const handleLogin = async () => {
     const result = await login(email, password);
-    if (!result.success) {
-      Alert.alert("Error", result.message);
-    } else {
-      console.log("Login feito com sucesso");
-      // Aqui podes redirecionar para a home se quiseres
-    }
+    if (!result.success) Alert.alert("Error", result.message);
   };
 
   return (
@@ -40,7 +34,7 @@ export default function Login() {
       style={{ flex: 1 }}
     >
       <View style={styles.container}>
-        {/* IMAGE */}
+        {/*IMAGE*/}
         <View style={styles.topIllustration}>
           <Image
             source={require("../../assets/images/i2.png")}
@@ -51,7 +45,7 @@ export default function Login() {
 
         <View style={styles.card}>
           <View style={styles.formContainer}>
-            {/* EMAIL */}
+            {/*EMAIL*/}
             <View style={styles.inputGroup}>
               <Text style={styles.label}>Email</Text>
               <View style={styles.inputContainer}>
@@ -63,7 +57,7 @@ export default function Login() {
                 />
                 <TextInput
                   style={styles.input}
-                  placeholder="Enter your email"
+                  placeholder="Enter here your email"
                   placeholderTextColor={COLORS.placeholderText}
                   value={email}
                   onChangeText={setEmail}
@@ -72,8 +66,7 @@ export default function Login() {
                 />
               </View>
             </View>
-
-            {/* PASSWORD */}
+            {/*PASSWORD*/}
             <View style={styles.inputGroup}>
               <Text style={styles.label}>Password</Text>
               <View style={styles.inputContainer}>
@@ -83,14 +76,16 @@ export default function Login() {
                   color={COLORS.primary}
                   style={styles.inputIcon}
                 />
+                {/*Input*/}
                 <TextInput
                   style={styles.input}
-                  placeholder="Enter your password"
+                  placeholder="Enter here your password"
                   placeholderTextColor={COLORS.placeholderText}
                   value={password}
                   onChangeText={setPassword}
                   secureTextEntry={!showPassword}
                 />
+
                 <TouchableOpacity
                   onPress={() => setShowPassword(!showPassword)}
                   style={styles.eyeIcon}
@@ -104,7 +99,6 @@ export default function Login() {
               </View>
             </View>
 
-            {/* LOGIN BUTTON */}
             <TouchableOpacity
               style={styles.button}
               onPress={handleLogin}
@@ -117,15 +111,11 @@ export default function Login() {
               )}
             </TouchableOpacity>
 
-            {/* SIGNUP LINK */}
             <View style={styles.footer}>
               <Text style={styles.footerText}>Don't have an account?</Text>
-              <TouchableOpacity onPress={() => {
-                console.log("Ir para SignUp");
-                router.push("/(auth)/signup");
-              }}>
+              <Link href="/(auth)/signup">
                 <Text style={styles.link}>Sign Up</Text>
-              </TouchableOpacity>
+              </Link>
             </View>
           </View>
         </View>
