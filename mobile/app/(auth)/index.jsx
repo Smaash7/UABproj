@@ -6,23 +6,24 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   KeyboardAvoidingView,
-  Alert, 
+  Alert,
   Platform,
 } from "react-native";
 import React, { useState } from "react";
 import styles from "../../assets/styles/login.styles";
 import { Ionicons } from "@expo/vector-icons";
 import COLORS from "../../constants/colors";
-import { useRouter } from "expo-router"; // ✅ useRouter em vez de Link
-
+import { useRouter } from "expo-router";
 import { useAuthStore } from "../../store/authStore";
+import { useTheme } from "../../context/ThemeContext";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const { isLoading, login } = useAuthStore();
-  const router = useRouter(); // ✅ necessário para navegação
+  const router = useRouter();
+  const { name, toggleTheme } = useTheme();
 
   const handleLogin = async () => {
     const result = await login(email, password);
@@ -30,7 +31,6 @@ export default function Login() {
       Alert.alert("Error", result.message);
     } else {
       console.log("Login feito com sucesso");
-      // Aqui podes redirecionar para a home se quiseres
     }
   };
 
@@ -39,7 +39,37 @@ export default function Login() {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={{ flex: 1 }}
     >
-      <View style={styles.container}>
+      <View
+        style={[
+          styles.container,
+          { backgroundColor: name === "dark" ? "#2a0b1d" : "#ffeef8" },
+        ]}
+      >
+        {/* Dark Mode Toggle */}
+        <TouchableOpacity
+          onPress={toggleTheme}
+          style={{
+            alignSelf: "flex-end",
+            margin: 20,
+            backgroundColor: name === "dark" ? "#3b0a36" : "#e91e63",
+            width: 50,
+            height: 28,
+            borderRadius: 20,
+            justifyContent: "center",
+            padding: 2,
+          }}
+        >
+          <View
+            style={{
+              width: 22,
+              height: 22,
+              borderRadius: 11,
+              backgroundColor: "white",
+              transform: [{ translateX: name === "dark" ? 22 : 2 }],
+            }}
+          />
+        </TouchableOpacity>
+
         {/* IMAGE */}
         <View style={styles.topIllustration}>
           <Image
@@ -49,12 +79,34 @@ export default function Login() {
           />
         </View>
 
-        <View style={styles.card}>
+        <View
+          style={[
+            styles.card,
+            { backgroundColor: name === "dark" ? "#3b0a36" : "white" },
+          ]}
+        >
           <View style={styles.formContainer}>
             {/* EMAIL */}
             <View style={styles.inputGroup}>
-              <Text style={styles.label}>Email</Text>
-              <View style={styles.inputContainer}>
+              <Text
+                style={[
+                  styles.label,
+                  { color: name === "dark" ? "#ffeef8" : COLORS.textPrimary },
+                ]}
+              >
+                Email
+              </Text>
+              <View
+                style={[
+                  styles.inputContainer,
+                  {
+                    backgroundColor:
+                      name === "dark" ? "#3b0a36" : COLORS.inputBackground,
+                    borderColor: name === "dark" ? "#FF3CAC" : COLORS.border,
+                    borderWidth: 1,
+                  },
+                ]}
+              >
                 <Ionicons
                   name="mail-outline"
                   size={20}
@@ -62,9 +114,12 @@ export default function Login() {
                   style={styles.inputIcon}
                 />
                 <TextInput
-                  style={styles.input}
+                  style={[styles.input, { color: name === "dark" ? "#ffeef8" : COLORS.textDark }]}
+
                   placeholder="Enter your email"
-                  placeholderTextColor={COLORS.placeholderText}
+                  placeholderTextColor={
+                    name === "dark" ? "#ffeef8" : COLORS.placeholderText
+                  }
                   value={email}
                   onChangeText={setEmail}
                   keyboardType="email-address"
@@ -75,24 +130,42 @@ export default function Login() {
 
             {/* PASSWORD */}
             <View style={styles.inputGroup}>
-              <Text style={styles.label}>Password</Text>
-              <View style={styles.inputContainer}>
+              <Text
+                style={[
+                  styles.label,
+                  { color: name === "dark" ? "#ffeef8" : COLORS.textPrimary },
+                ]}
+              >
+                Password
+              </Text>
+              <View
+                style={[
+                  styles.inputContainer,
+                  {
+                    backgroundColor:
+                      name === "dark" ? "#3b0a36" : COLORS.inputBackground,
+                    borderColor: name === "dark" ? "#FF3CAC" : COLORS.border,
+                    borderWidth: 1,
+                  },
+                ]}
+              >
                 <Ionicons
                   name="lock-closed-outline"
                   size={20}
                   color={COLORS.primary}
                   style={styles.inputIcon}
                 />
-
                 <TextInput
-                  style={styles.input}
+                  style={[styles.input, { color: name === "dark" ? "#ffeef8" : COLORS.textDark }]}
+
                   placeholder="Enter your password"
-                  placeholderTextColor={COLORS.placeholderText}
+                  placeholderTextColor={
+                    name === "dark" ? "#ffeef8" : COLORS.placeholderText
+                  }
                   value={password}
                   onChangeText={setPassword}
                   secureTextEntry={!showPassword}
                 />
-
                 <TouchableOpacity
                   onPress={() => setShowPassword(!showPassword)}
                   style={styles.eyeIcon}
@@ -108,7 +181,7 @@ export default function Login() {
 
             {/* LOGIN BUTTON */}
             <TouchableOpacity
-              style={styles.button}
+              style={[styles.button, { backgroundColor: COLORS.primary }]}
               onPress={handleLogin}
               disabled={isLoading}
             >
@@ -121,12 +194,16 @@ export default function Login() {
 
             {/* SIGNUP LINK */}
             <View style={styles.footer}>
-              <Text style={styles.footerText}>Don't have an account?</Text>
-              <TouchableOpacity onPress={() => {
-                console.log("Ir para SignUp");
-                router.push("/(auth)/signup");
-              }}>
-                <Text style={styles.link}>Sign Up</Text>
+              <Text
+                style={[
+                  styles.footerText,
+                  { color: name === "dark" ? "#ffeef8" : COLORS.textSecondary },
+                ]}
+              >
+                Don't have an account?
+              </Text>
+              <TouchableOpacity onPress={() => router.push("/(auth)/signup")}>
+                <Text style={[styles.link, { color: COLORS.primary }]}>Sign Up</Text>
               </TouchableOpacity>
             </View>
           </View>

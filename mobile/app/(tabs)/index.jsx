@@ -1,16 +1,23 @@
-import { View, Text, TouchableOpacity, FlatList, ActivityIndicator, RefreshControl } from "react-native";
-import React, { useEffect } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  FlatList,
+  ActivityIndicator,
+  RefreshControl,
+} from "react-native";
+import React, { useEffect, useState } from "react";
 import { useAuthStore } from "../../store/authStore";
 import { useRouter } from "expo-router";
-import { useState } from "react";
 import { API_URL } from "../../constants/api";
 import { Image } from "expo-image";
 import COLORS from "../../constants/colors";
 
 import styles from "../../assets/styles/home.styles";
 import { Ionicons } from "@expo/vector-icons";
-import { formatPublisDate, formatPublishDate } from "../../lib/utils";
+import { formatPublishDate } from "../../lib/utils";
 import Loader from "../../components/Loader";
+import { useTheme } from "../../context/ThemeContext";
 
 export default function Home() {
   const { token } = useAuthStore();
@@ -19,6 +26,8 @@ export default function Home() {
   const [refreshing, setRefreshing] = useState(false);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+
+  const theme = useTheme();
 
   const fetchBarbers = async (pageNum = 1, refreshing = false) => {
     try {
@@ -36,8 +45,6 @@ export default function Home() {
       if (!response.ok)
         throw new Error(data.message || "Failed to fetch barbers");
 
-      //to do fix it later
-      //setBarbers((prevBarbers) => [...prevBarbers, ...data.barbers]);
       const uniqueBarbers =
         refreshing || pageNum === 1
           ? data.barbers
@@ -48,16 +55,12 @@ export default function Home() {
             );
 
       setBarbers(uniqueBarbers);
-
       setHasMore(pageNum < data.totalPages);
       setPage(pageNum);
     } catch (error) {
       console.log("Error fetching barbers:", error);
     } finally {
-      if (refreshing) {
-
-        setRefreshing(false);
-      }
+      if (refreshing) setRefreshing(false);
       else setLoading(false);
     }
   };
@@ -67,7 +70,7 @@ export default function Home() {
   }, []);
 
   const handleLoadMore = async () => {
-    if(hasMore && !loading && !refreshing){
+    if (hasMore && !loading && !refreshing) {
       await fetchBarbers(page + 1);
     }
   };
@@ -80,10 +83,12 @@ export default function Home() {
             source={{ uri: item.user.profileImage }}
             style={styles.avatar}
           />
-          <Text style={styles.username}>{item.user.username}</Text>
+          <Text style={styles.username}>
+            {item.user.username}
+          </Text>
         </View>
       </View>
-
+  
       <View style={styles.barberImageContainer}>
         <Image
           source={{ uri: item.image }}
@@ -91,18 +96,24 @@ export default function Home() {
           contentFit="fill"
         />
       </View>
+  
       <View style={styles.barberDetails}>
-        <Text style={styles.barberTitle}>{item.title}</Text>
+        <Text style={styles.barberTitle}>
+          {item.title}
+        </Text>
         <View style={styles.ratingContainer}>
           {renderRatingStars(item.rating)}
         </View>
-        <Text style={styles.caption}>{item.caption}</Text>
+        <Text style={styles.caption}>
+          {item.caption}
+        </Text>
         <Text style={styles.date}>
           Shared on {formatPublishDate(item.createdAt)}
         </Text>
       </View>
     </View>
   );
+  
 
   const renderRatingStars = (rating) => {
     const stars = [];
@@ -112,7 +123,7 @@ export default function Home() {
           key={i}
           name={i < rating ? "star" : "star-outline"}
           size={20}
-          color={i <= rating ? "#f4b400" : COLORS.textSecondary}
+          color={i < rating ? "#f4b400" : COLORS.textSecondary}
           style={{ marginRight: 2 }}
         />
       );
@@ -120,50 +131,60 @@ export default function Home() {
     return stars;
   };
 
-  if(loading) return <Loader />;
+  if (loading) return <Loader />;
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: theme.background }]}>
       <FlatList
         data={barbers}
         renderItem={renderItem}
         keyExtractor={(item) => item._id}
         contentContainerStyle={styles.listContainer}
         showsVerticalScrollIndicator={false}
-
         refreshControl={
-          <RefreshControl 
+          <RefreshControl
             refreshing={refreshing}
             onRefresh={() => fetchBarbers(1, true)}
-            colors={[COLORS.primary]}
-            tintColor={COLORS.primary}
+            colors={[theme.primary]}
+            tintColor={theme.primary}
           />
         }
-
         onEndReached={handleLoadMore}
         onEndReachedThreshold={0.1}
         ListHeaderComponent={
           <View style={styles.header}>
-            <Text style={styles.headerTitle}>✨ Bella</Text>
-            <Text style={styles.headerSubtitle}>
-            Discover and share top-rated barbers trusted by the community 💈
+            <Text style={[styles.headerTitle, { color: theme.text }]}>
+              ✨ Bella
+            </Text>
+            <Text style={[styles.headerSubtitle, { color: theme.text }]}>
+              Discover and share top-rated barbers trusted by the community 💈
             </Text>
             <View style={{ height: 10 }} />
             <View style={styles.divider} />
           </View>
         }
-        
         ListFooterComponent={
           hasMore && barbers.length > 0 ? (
-            <ActivityIndicator style={styles.footerLoader} size="small" color={COLORS.primary} /> 
+            <ActivityIndicator
+              style={styles.footerLoader}
+              size="small"
+              color={theme.primary}
+            />
           ) : null
         }
-
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
-            <Ionicons name="cut-outline" size={60} color={COLORS.textSecondary} />
-            <Text style={styles.emptyText}>No Recommendations</Text>
-            <Text style={styles.emptySubtext}>Be the first to share a book</Text>
+            <Ionicons
+              name="cut-outline"
+              size={60}
+              color={COLORS.textSecondary}
+            />
+            <Text style={[styles.emptyText, { color: theme.text }]}>
+              No Recommendations
+            </Text>
+            <Text style={[styles.emptySubtext, { color: theme.text }]}>
+              Be the first to share a book
+            </Text>
           </View>
         }
       />

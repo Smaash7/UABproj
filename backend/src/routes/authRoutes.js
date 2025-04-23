@@ -9,6 +9,12 @@ const generateToken = (userId) => {
 
   };
 
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+  
+
 router.post("/register", async(req, res) => {
     try{
         const {email,username, password} = req.body;
@@ -17,13 +23,18 @@ router.post("/register", async(req, res) => {
             return res.status(400).json({ message: "All fields are required"});
         }
 
-        if (password.length <5){
-            return res.status(400).json({ message: "Password should be at least 5 characters long"});
-        }
-        if(username.length < 2){
-            return res.status(400).json({ message: "Username should be at least 2 characters long"});
+        if(username.length < 3){
+            return res.status(400).json({ message: "Username should be at least 3 characters long"});
         }
 
+        if (!isValidEmail(email)) {
+            return res.status(400).json({ message: "Email format is invalid" });
+          }
+
+          if (password.length < 6) {
+            return res.status(400).json({ message: "Password should be at least 6 characters long" });
+          }          
+        
         const existingEmail = await User.findOne({ email });
         if (existingEmail) {
             return res.status(400).json({ message: "Email already exists"});

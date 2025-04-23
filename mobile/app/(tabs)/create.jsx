@@ -18,6 +18,7 @@ import { Ionicons } from "@expo/vector-icons";
 import COLORS from "../../constants/colors";
 import { useAuthStore } from "../../store/authStore";
 import { API_URL } from "../../constants/api";
+import { useTheme } from "../../context/ThemeContext";
 
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
@@ -26,28 +27,25 @@ export default function Create() {
   const [title, setTitle] = useState("");
   const [caption, setCaption] = useState("");
   const [rating, setRating] = useState(3);
-  const [image, setImage] = useState(null); // to display the selected  image
+  const [image, setImage] = useState(null);
   const [imageBase64, setImageBase64] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
   const { token } = useAuthStore();
 
+  const theme = useTheme();
+
   const pickImage = async () => {
     try {
-      // request permission if needed
       if (Platform.OS === "android") {
-        const { status } =
-          await ImagePicker.requestMediaLibraryPermissionsAsync();
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (status !== "granted") {
-          Alert.alert(
-            "Permission to access camera roll is required for this feature to work"
-          );
+          Alert.alert("Permission to access camera roll is required for this feature to work");
           return;
         }
       }
 
-      //launch image library
       const result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: "images",
         allowsEditing: true,
@@ -59,11 +57,9 @@ export default function Create() {
       if (!result.canceled) {
         setImage(result.assets[0].uri);
 
-        // if base64 is provided, use it
         if (result.assets[0].base64) {
           setImageBase64(result.assets[0].base64);
         } else {
-          // otherwise, convert to base64
           const base64 = await convertToBase64(result.assets[0].uri, {
             endcoding: FileSystem.EndcodingType.Base64,
           });
@@ -87,18 +83,8 @@ export default function Create() {
 
       const uriParts = image.split(".");
       const fileType = uriParts[uriParts.length - 1];
-      const imageType = fileType
-        ? `image/${fileType.toLowerCase()}`
-        : "image/jpeg";
-
+      const imageType = fileType ? `image/${fileType.toLowerCase()}` : "image/jpeg";
       const imageDataUrl = `data:${imageType};base64,${imageBase64}`;
-
-      console.log({
-        title,
-        caption,
-        rating,
-        imageBase64: imageBase64?.slice(0, 30), // só um preview
-      });
 
       const response = await fetch(`${API_URL}/barbers`, {
         method: "POST",
@@ -115,10 +101,7 @@ export default function Create() {
       });
 
       const data = await response.json();
-      console.log("RESPONSE DATA:", data);
-
       if (!response.ok) throw new Error(data.message || "Something went wrong");
-
 
       Alert.alert("Success", "Your barber has been created");
       setTitle("");
@@ -129,10 +112,7 @@ export default function Create() {
       router.push("/");
     } catch (error) {
       console.error("Error creating barber", error);
-      Alert.alert(
-        "Error creating barber",
-        error.message || "Something went wrong"
-      );
+      Alert.alert("Error creating barber", error.message || "Something went wrong");
     } finally {
       setLoading(false);
     }
@@ -164,23 +144,34 @@ export default function Create() {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <ScrollView
-        contentContainerStyle={styles.container}
-        style={styles.scrollViewStyle}
+        contentContainerStyle={[
+          styles.container,
+          { backgroundColor: theme.background },
+        ]}
+        style={{ backgroundColor: theme.background }}
       >
-        <View style={styles.card}>
-          {/*Header*/}
+        <View
+          style={[
+            styles.card,
+            {
+              backgroundColor: theme.card,
+              borderWidth: theme.name === "dark" ? 1 : 0,
+              borderColor: theme.name === "dark" ? "#FF3CAC" : "transparent",
+              shadowColor: theme.name === "dark" ? "#000" : "transparent",
+              shadowOpacity: theme.name === "dark" ? 0.15 : 0,
+              elevation: theme.name === "dark" ? 5 : 0,
+            },
+          ]}
+        >
           <View style={styles.header}>
-            <Text style={styles.title}>Add Barber Recommendation</Text>
-            <Text style={styles.subtitle}>
-              Share your favorite barber with us!
-            </Text>
+            <Text style={[styles.title, { color: theme.text }]}>Add Barber Recommendation</Text>
+            <Text style={[styles.subtitle, { color: theme.text }]}>Share your favorite barber with us!</Text>
           </View>
 
           <View style={styles.form}>
-            {/*Barber*/}
             <View style={styles.formGroup}>
-              <Text style={styles.label}>Barber Name</Text>
-              <View style={styles.inputContainer}>
+              <Text style={[styles.label, { color: theme.text }]}>Barber Name</Text>
+              <View style={[styles.inputContainer, { backgroundColor: theme.input }]}>
                 <Ionicons
                   name="storefront-outline"
                   size={20}
@@ -188,57 +179,50 @@ export default function Create() {
                   style={styles.inputIcon}
                 />
                 <TextInput
-                  style={styles.input}
+                  style={[styles.input, { color: theme.text }]}
                   placeholder="Barber Name"
-                  placeholderText={COLORS.placeholderText}
+                  placeholderTextColor={COLORS.placeholderText}
                   value={title}
                   onChangeText={setTitle}
                 />
               </View>
             </View>
 
-            {/*Rating*/}
             <View style={styles.formGroup}>
-              <Text style={styles.label}>Your Rating</Text>
+              <Text style={[styles.label, { color: theme.text }]}>Your Rating</Text>
               {renderRatingPicker()}
             </View>
 
-            {/*IMAGE*/}
             <View style={styles.formGroup}>
-              <Text style={styles.label}>Barber Image</Text>
+              <Text style={[styles.label, { color: theme.text }]}>Barber Image</Text>
               <TouchableOpacity style={styles.imagePicker} onPress={pickImage}>
                 {image ? (
                   <Image source={{ uri: image }} style={styles.previewImage} />
                 ) : (
                   <View style={styles.placeholderContainer}>
-                    <Ionicons
-                      name="image-outline"
-                      size={40}
-                      color={COLORS.textSecondary}
-                    />
-                    <Text style={styles.placeholderText}>
-                      Tap to select image
-                    </Text>
+                    <Ionicons name="image-outline" size={40} color={COLORS.textSecondary} />
+                    <Text style={[styles.placeholderText, { color: theme.text }]}>Tap to select image</Text>
                   </View>
                 )}
               </TouchableOpacity>
             </View>
 
-            {/*CAPTION*/}
             <View style={styles.formGroup}>
-              <Text style={styles.label}>Caption</Text>
-              <TextInput
-                style={styles.textArea}
-                placeholder="Write here your Review"
-                placeholderTextColor={COLORS.placeholderText}
-                value={caption}
-                onChangeText={setCaption}
-                multiline
-              />
+              <Text style={[styles.label, { color: theme.text }]}>Caption</Text>
+              <View style={[styles.inputContainer, { backgroundColor: theme.input }]}>
+                <TextInput
+                  style={[styles.input, { color: theme.text }]}
+                  placeholder="Write here your Review"
+                  placeholderTextColor={COLORS.placeholderText}
+                  value={caption}
+                  onChangeText={setCaption}
+                  multiline
+                />
+              </View>
             </View>
 
             <TouchableOpacity
-              style={styles.button}
+              style={[styles.button, { backgroundColor: theme.primary }]}
               onPress={handleSubmit}
               disabled={loading}
             >
