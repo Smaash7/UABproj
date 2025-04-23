@@ -18,8 +18,7 @@ import LogoutButton from "../../components/LogoutButton";
 import { Ionicons } from "@expo/vector-icons";
 import COLORS from "../../constants/colors";
 import { Image } from "expo-image";
-import Loader from "../../components/Loader";
-import { useTranslation } from "react-i18next";
+import Loader from "../../components/Loader"
 import { useTheme } from "../../context/ThemeContext";
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -34,7 +33,7 @@ export default function Profile() {
   const { token } = useAuthStore();
   const router = useRouter();
   const { name: themeName, toggleTheme, ...theme } = useTheme();
-  const { t } = useTranslation();
+  
 
   const fetchData = async () => {
     try {
