@@ -83,12 +83,10 @@ export default function Home() {
             source={{ uri: item.user.profileImage }}
             style={styles.avatar}
           />
-          <Text style={styles.username}>
-            {item.user.username}
-          </Text>
+          <Text style={styles.username}>{item.user.username}</Text>
         </View>
       </View>
-  
+
       <View style={styles.barberImageContainer}>
         <Image
           source={{ uri: item.image }}
@@ -96,24 +94,19 @@ export default function Home() {
           contentFit="fill"
         />
       </View>
-  
+
       <View style={styles.barberDetails}>
-        <Text style={styles.barberTitle}>
-          {item.title}
-        </Text>
+        <Text style={styles.barberTitle}>{item.title}</Text>
         <View style={styles.ratingContainer}>
           {renderRatingStars(item.rating)}
         </View>
-        <Text style={styles.caption}>
-          {item.caption}
-        </Text>
+        <Text style={styles.caption}>{item.caption}</Text>
         <Text style={styles.date}>
           Shared on {formatPublishDate(item.createdAt)}
         </Text>
       </View>
     </View>
   );
-  
 
   const renderRatingStars = (rating) => {
     const stars = [];
@@ -153,10 +146,21 @@ export default function Home() {
         onEndReachedThreshold={0.1}
         ListHeaderComponent={
           <View style={styles.header}>
-            <Text style={[styles.headerTitle, { color: theme.text }]}>
-              ✨ Bella
+            <Ionicons name="cut-outline" size={24} color="#FF007F" />
+            <Text
+              style={[
+                styles.headerTitle,
+                { color: "#880E4F", marginLeft: 8 }, // rosa escuro fixo
+              ]}
+            >
+              Bella Recommendations ✨
             </Text>
-            <Text style={[styles.headerSubtitle, { color: theme.text }]}>
+            <Text
+              style={[
+                styles.headerSubtitle,
+                { color: "#880E4F" }, // também rosa escuro fixo
+              ]}
+            >
               Discover and share top-rated barbers trusted by the community 💈
             </Text>
             <View style={{ height: 10 }} />
