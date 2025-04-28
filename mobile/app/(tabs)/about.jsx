@@ -115,7 +115,7 @@ export default function About() {
         <Text style={[styles.text, { color: theme.text }]}>
           Our community is made of rebels, creatives, and newcomers — people
           tired of average, seeking to leave a mark with every step, every fade,
-          every look. This is more than grooming. It's a movement. ✂️🔥
+          every look. This is more than grooming. It's a movement. ✂️
         </Text>
       </View>
 
@@ -141,9 +141,6 @@ export default function About() {
           📞 Contact Us
         </Text>
         <Text style={[styles.text, { color: theme.text }]}>
-          📍 Address: 123 Style Blvd, Fashion City
-        </Text>
-        <Text style={[styles.text, { color: theme.text }]}>
           📧 Email: hello@vella.com
         </Text>
         <Text style={[styles.text, { color: theme.text }]}>
@@ -158,12 +155,12 @@ export default function About() {
       </View>
 
       <TouchableOpacity onPress={scrollToTop} style={styles.backToTopButton}>
-        <Ionicons
+       {/*  <Ionicons
           name="arrow-up-circle-outline"
           size={20}
           color="white"
           style={{ marginRight: 8 }}
-        />
+        /> */}
         <Text style={styles.backToTopText}>Back to Top</Text>
       </TouchableOpacity>
     </ScrollView>
