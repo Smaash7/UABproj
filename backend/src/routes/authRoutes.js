@@ -16,6 +16,7 @@ const generateToken = (userId) => {
   
 
 router.post("/register", async(req, res) => {
+    console.log("Register route hit");
     try{
         const {email,username, password} = req.body;
 

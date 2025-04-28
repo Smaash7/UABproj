@@ -8,9 +8,12 @@ export const useAuthStore = create((set) => ({
   isLoading: false,
 
   register: async (username, email, password) => {
+    console.log("SET LOADING TRUE");
     set({ isLoading: true });
 
+    console.log("try")
     try {
+      console.log("try 2")
       const response = await fetch(`${API_URL}/auth/register`, {
         method: "POST",
         headers: {
@@ -19,16 +22,20 @@ export const useAuthStore = create((set) => ({
         body: JSON.stringify({ username, email, password }),
       });
 
+      console.log("REGISTER RESPONSE", response);
+
       const data = await response.json();
 
       if (!response.ok) throw new Error(data.message || "Something went wrong");
 
+      console.log("REGISTER DATA", data);
       // guardar no armazenamento local
       await AsyncStorage.setItem("user", JSON.stringify(data.user));
       await AsyncStorage.setItem("token", data.token);
 
       set({ token: data.token, user: data.user, isLoading: false });
 
+      console.log("REGISTERED USER", data.user);
       return { success: true };
 
     } catch (error) {

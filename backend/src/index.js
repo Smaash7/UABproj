@@ -18,6 +18,10 @@ job.start();
 app.use("/api/auth", authRoutes);
 app.use("/api/barbers", barberRoutes);
 
+app.get("/", (req, res) => {
+    console.log("GET /");
+});
+
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
     connectDB();
