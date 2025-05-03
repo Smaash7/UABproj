@@ -12,14 +12,15 @@ import { useRouter } from "expo-router";
 import { API_URL } from "../../constants/api";
 import { Image } from "expo-image";
 import COLORS from "../../constants/colors";
-
 import styles from "../../assets/styles/home.styles";
 import { Ionicons } from "@expo/vector-icons";
 import { formatPublishDate } from "../../lib/utils";
 import Loader from "../../components/Loader";
 import { useTheme } from "../../context/ThemeContext";
+import { useTranslation } from 'react-i18next'; 
 
 export default function Home() {
+  const { t } = useTranslation(); 
   const { token } = useAuthStore();
   const [barbers, setBarbers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -43,7 +44,7 @@ export default function Home() {
 
       const data = await response.json();
       if (!response.ok)
-        throw new Error(data.message || "Failed to fetch barbers");
+        throw new Error(data.message || t('home.errorFetching')); 
 
       const uniqueBarbers =
         refreshing || pageNum === 1
@@ -102,7 +103,7 @@ export default function Home() {
         </View>
         <Text style={styles.caption}>{item.caption}</Text>
         <Text style={styles.date}>
-          Shared on {formatPublishDate(item.createdAt)}
+          {t('home.sharedOn')} {formatPublishDate(item.createdAt)} 
         </Text>
       </View>
     </View>
@@ -150,18 +151,18 @@ export default function Home() {
             <Text
               style={[
                 styles.headerTitle,
-                { color: "#880E4F", marginLeft: 8 }, // rosa escuro fixo
+                { color: "#880E4F", marginLeft: 8 }, 
               ]}
             >
-              Bella Recommendations ✨
+              {t('home.headerTitle')} 
             </Text>
             <Text
               style={[
                 styles.headerSubtitle,
-                { color: "#880E4F" }, // também rosa escuro fixo
+                { color: "#880E4F" }, 
               ]}
             >
-              Discover and share top-rated barbers trusted by the community 💈
+              {t('home.headerSubtitle')}
             </Text>
             <View style={{ height: 10 }} />
             <View style={styles.divider} />
@@ -184,10 +185,10 @@ export default function Home() {
               color={COLORS.textSecondary}
             />
             <Text style={[styles.emptyText, { color: theme.text }]}>
-              No Recommendations
+              {t('home.noRecommendations')} 
             </Text>
             <Text style={[styles.emptySubtext, { color: theme.text }]}>
-              Be the first to share a book
+              {t('home.noRecommendationsSubtext')}
             </Text>
           </View>
         }

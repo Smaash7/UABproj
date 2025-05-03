@@ -45,5 +45,69 @@
     "contact_instagram": "📸 Instagram: @vella.style",
     "contact_work": "💼 Work with us: careers@vella.com",
     "back_to_top": "Back to Top"
+  },
+  "create": {
+    "title": "Add Barber Recommendation",
+  "subtitle": "Share your favorite barber with us!",
+  "barberName": "Barber Name",
+  "rating": "Your Rating",
+  "image": "Barber Image",
+  "selectImage": "Tap to select image",
+  "caption": "Caption",
+  "captionPlaceholder": "Write here your Review",
+  "submit": "Submit Review",
+  "loading": "Submitting...",
+  "alertMissingFields": "Please fill in all fields",
+  "alertPermission": "Permission to access camera roll is required for this feature to work",
+  "alertSuccessTitle": "Success",
+  "alertSuccessMessage": "Your barber has been created",
+  "alertErrorTitle": "Error creating barber",
+  "alertErrorGeneric": "Something went wrong",
+  "alertErrorPickImage": "Error picking image"
+  },
+  "home": {
+    "headerTitle": "Bella Recommendations ✨",
+    "headerSubtitle": "Discover and share top-rated barbers trusted by the community 💈",
+    "sharedOn": "Shared on",
+    "noRecommendations": "No Recommendations",
+    "noRecommendationsSubtext": "Be the first to share a barber",
+    "errorFetching": "Failed to fetch barbers"
+  },
+    "tabs": {
+      "home": "Home",
+      "create": "Create",
+      "profile": "Profile",
+      "about": "About"
+  },
+  "errors": {
+    "fetchBarbers": "Failed to load barbers.",
+    "failedDeleteBarber": "Failed to delete barber",
+    "error": "Error"
+  },
+  "success": {
+    "deleteBarberTitle": "Success",
+    "deleteBarberMessage": "Barber deleted successfully"
+  },
+  "confirmDelete": {
+    "title": "Confirm Delete",
+    "message": "Are you sure you want to delete this barber?"
+  },
+  "cancel": "Cancel",
+  "delete": "Delete",
+  "theme": {
+    "light": "🌞 Light Theme",
+    "dark": "🌚 Dark Theme"
+  },
+  "selectTheme": "Select Theme",
+  "emptyListMessage": "No barbers found.",
+  "addFirstBarber": "Add your first Barber",
+  "selectLanguage": "Select language",
+  "language": {
+    "en": "English",
+    "pt": "Portuguese",
+    "sl": "Slovene",
+    "de": "German",
+    "fr": "French"
   }
+  
 }

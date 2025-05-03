@@ -2,10 +2,12 @@ import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTheme } from "../../context/ThemeContext";
+import { useTranslation } from "react-i18next";  
 
 export default function TabLayout() {
   const insets = useSafeAreaInsets();
   const theme = useTheme();
+  const { t } = useTranslation();  
 
   return (
     <Tabs
@@ -31,7 +33,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Home",
+          title: t('tabs.home'),  
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home-outline" size={size} color={color} />
           ),
@@ -40,7 +42,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="create"
         options={{
-          title: "Create",
+          title: t('tabs.create'), 
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="add-circle-outline" size={size} color={color} />
           ),
@@ -49,7 +51,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="profile"
         options={{
-          title: "Profile",
+          title: t('tabs.profile'),  
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="person-outline" size={size} color={color} />
           ),
@@ -58,7 +60,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="about"
         options={{
-          title: "About",
+          title: t('tabs.about'),  
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="information-circle-outline" size={size} color={color} />
           ),

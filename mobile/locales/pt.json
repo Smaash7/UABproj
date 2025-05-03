@@ -45,5 +45,68 @@
     "contact_instagram": "📸 Instagram: @vella.style",
     "contact_work": "💼 Trabalhe connosco: careers@vella.com",
     "back_to_top": "Voltar ao topo"
+  },
+  "create": {
+    "title": "Adicionar Recomendação de Barbeiro",
+    "subtitle": "Partilha o teu barbeiro favorito connosco!",
+    "label_name": "Nome do Barbeiro",
+    "placeholder_name": "Nome do Barbeiro",
+    "label_rating": "A tua Avaliação",
+    "label_image": "Imagem do Barbeiro",
+    "image_placeholder": "Toca para selecionar imagem",
+    "label_caption": "Legenda",
+    "placeholder_caption": "Escreve aqui a tua opinião",
+    "submit_button": "Submeter Avaliação",
+    "fill_fields": "Por favor preenche todos os campos",
+    "success_title": "Sucesso",
+    "success_message": "O barbeiro foi criado com sucesso",
+    "error_title": "Erro",
+    "generic_error": "Algo correu mal",
+    "image_error": "Erro ao escolher imagem",
+    "permission_alert": "A permissão para aceder à galeria é necessária para esta funcionalidade"
+  },
+  "home": {
+    "headerTitle": "Recomendações Bella ✨",
+    "headerSubtitle": "Descubra e compartilhe barbeiros bem avaliados, confiáveis pela comunidade 💈",
+    "sharedOn": "Compartilhado em",
+    "noRecommendations": "Sem recomendações",
+    "noRecommendationsSubtext": "Seja o primeiro a compartilhar um barbeiro",
+    "errorFetching": "Falha ao buscar barbeiros"
+  },
+  "tabs": {
+    "home": "Início",
+    "create": "Criar",
+    "profile": "Perfil",
+    "about": "Sobre"
+  },
+  "errors": {
+    "fetchBarbers": "Falha ao carregar barbeiros.",
+    "failedDeleteBarber": "Falha ao excluir o barbeiro",
+    "error": "Erro"
+  },
+  "success": {
+    "deleteBarberTitle": "Sucesso",
+    "deleteBarberMessage": "Barbeiro excluído com sucesso"
+  },
+  "confirmDelete": {
+    "title": "Confirmar Exclusão",
+    "message": "Você tem certeza de que deseja excluir este barbeiro?"
+  },
+  "cancel": "Cancelar",
+  "delete": "Excluir",
+  "theme": {
+    "light": "🌞 Tema Claro",
+    "dark": "🌚 Tema Escuro"
+  },
+  "selectTheme": "Selecionar Tema",
+  "emptyListMessage": "Nenhum barbeiro encontrado.",
+  "addFirstBarber": "Adicione seu primeiro Barbeiro",
+  "selectLanguage": "Selecionar idioma",
+  "language": {
+    "en": "Inglês",
+    "pt": "Português",
+    "sl": "Esloveno",
+    "de": "Alemão",
+    "fr": "Francês"
   }
 }

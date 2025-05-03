@@ -18,8 +18,10 @@ import LogoutButton from "../../components/LogoutButton";
 import { Ionicons } from "@expo/vector-icons";
 import COLORS from "../../constants/colors";
 import { Image } from "expo-image";
-import Loader from "../../components/Loader"
+import Loader from "../../components/Loader";
 import { useTheme } from "../../context/ThemeContext";
+import { useTranslation } from "react-i18next";
+import i18n from "../../i18n";
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -29,11 +31,12 @@ export default function Profile() {
   const [refreshing, setRefreshing] = useState(false);
   const [deleteBookId, setDeleteBookId] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const [languageModalVisible, setLanguageModalVisible] = useState(false);
 
   const { token } = useAuthStore();
   const router = useRouter();
   const { name: themeName, toggleTheme, ...theme } = useTheme();
-  
+  const { t } = useTranslation();
 
   const fetchData = async () => {
     try {
@@ -47,7 +50,7 @@ export default function Profile() {
       setBarbers(data);
     } catch (error) {
       console.error("Error fetching data:", error);
-      Alert.alert("Error", "Failed to load barbers ");
+      Alert.alert("Error", t("errors.fetchBarbers"));
     } finally {
       setIsLoading(false);
     }
@@ -68,27 +71,23 @@ export default function Profile() {
       if (!response.ok)
         throw new Error(data.message || "Failed to delete barber");
       setBarbers(barbers.filter((barber) => barber._id !== barberId));
-      Alert.alert("Success", "Barber deleted successfully");
+      Alert.alert(t("success.deleteBarberTitle"), t("success.deleteBarberMessage"));
     } catch (error) {
-      Alert.alert("Error", error.message || "Failed to delete barber");
+      Alert.alert(t("errors.error"), error.message || t("errors.failedDeleteBarber"));
     } finally {
       setDeleteBookId(null);
     }
   };
 
   const confirmDelete = (barberId) => {
-    Alert.alert(
-      "Confirm Delete",
-      "Are you sure you want to delete this barber?",
-      [
-        { text: "Cancel", style: "cancel" },
-        {
-          text: "Delete",
-          style: "destructive",
-          onPress: () => handleDeleteBarber(barberId),
-        },
-      ]
-    );
+    Alert.alert(t("confirmDelete.title"), t("confirmDelete.message"), [
+      { text: t("cancel"), style: "cancel" },
+      {
+        text: t("delete"),
+        style: "destructive",
+        onPress: () => handleDeleteBarber(barberId),
+      },
+    ]);
   };
 
   const renderBarberItem = ({ item }) => (
@@ -97,12 +96,12 @@ export default function Profile() {
       <View style={styles.barberInfo}>
         <Text style={[styles.barberTitle, { color: "#3b0a36" }]}>{item.title}</Text>
         <View style={styles.ratingContainer}>{renderRatingStars(item.rating)}</View>
-        <View>
-          <Text style={[styles.barberCaption, { color: "#3b0a36" }]} numberOfLines={2}>
-            {item.caption}
-          </Text>
-          <Text style={[styles.barberDate, { color: "#3b0a36" }]}>{new Date(item.createdAt).toLocaleDateString()}</Text>
-        </View>
+        <Text style={[styles.barberCaption, { color: "#3b0a36" }]} numberOfLines={2}>
+          {item.caption}
+        </Text>
+        <Text style={[styles.barberDate, { color: "#3b0a36" }]}>
+          {new Date(item.createdAt).toLocaleDateString()}
+        </Text>
         <TouchableOpacity
           style={styles.deleteButton}
           onPress={() => confirmDelete(item._id)}
@@ -148,8 +147,32 @@ export default function Profile() {
       <LogoutButton />
 
       <View style={{ paddingHorizontal: 10, marginBottom: 10 }}>
+        {/* Theme Toggle Button */}
         <TouchableOpacity
           onPress={() => setModalVisible(true)}
+          style={{
+            backgroundColor: theme.secondary,
+            padding: 10,
+            borderRadius: 8,
+            borderWidth: 1,
+            borderColor: theme.primary,
+            marginBottom: 10,
+          }}
+        >
+          <Text
+            style={{
+              color: theme.text,
+              fontWeight: "bold",
+              textAlign: "center",
+            }}
+          >
+            {themeName === "dark" ? t("theme.dark") : t("theme.light")}
+          </Text>
+        </TouchableOpacity>
+
+        {/* Language Toggle Button */}
+        <TouchableOpacity
+          onPress={() => setLanguageModalVisible(true)}
           style={{
             backgroundColor: theme.secondary,
             padding: 10,
@@ -165,10 +188,11 @@ export default function Profile() {
               textAlign: "center",
             }}
           >
-            {themeName === "dark" ? "🌚 Dark Theme" : "🌞 Light Theme"}
+            🌐 {t("selectLanguage")}
           </Text>
         </TouchableOpacity>
 
+        {/* Theme Modal */}
         <Modal
           animationType="fade"
           transparent
@@ -202,13 +226,10 @@ export default function Profile() {
                   textAlign: "center",
                 }}
               >
-                Select Theme
+                {t("selectTheme")}
               </Text>
 
-              {[
-                { name: "light", label: "🌞 Light Theme" },
-                { name: "dark", label: "🌚 Dark Theme" },
-              ].map(({ name, label }) => (
+              {["light", "dark"].map((name) => (
                 <TouchableOpacity
                   key={name}
                   onPress={() => {
@@ -217,8 +238,7 @@ export default function Profile() {
                   }}
                   style={{
                     paddingVertical: 10,
-                    backgroundColor:
-                      themeName === name ? theme.primary : "transparent",
+                    backgroundColor: themeName === name ? theme.primary : "transparent",
                     borderRadius: 6,
                     marginBottom: 10,
                   }}
@@ -230,10 +250,78 @@ export default function Profile() {
                       color: themeName === name ? "#fff" : theme.text,
                     }}
                   >
-                    {label}
+                    {t(`theme.${name}`)}
                   </Text>
                 </TouchableOpacity>
               ))}
+            </View>
+          </TouchableOpacity>
+        </Modal>
+
+        {/* Language Modal */}
+        <Modal
+          animationType="fade"
+          transparent
+          visible={languageModalVisible}
+          onRequestClose={() => setLanguageModalVisible(false)}
+        >
+          <TouchableOpacity
+            style={{
+              flex: 1,
+              backgroundColor: "rgba(0,0,0,0.5)",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+            activeOpacity={1}
+            onPressOut={() => setLanguageModalVisible(false)}
+          >
+            <View
+              style={{
+                backgroundColor: theme.background,
+                padding: 20,
+                borderRadius: 12,
+                width: "70%",
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 18,
+                  fontWeight: "bold",
+                  marginBottom: 15,
+                  color: theme.text,
+                  textAlign: "center",
+                }}
+              >
+                {t("selectLanguage")}
+              </Text>
+
+              {[{ code: "en" }, { code: "pt" }, { code: "sl" }, { code: "de" }, { code: "fr" }].map(
+                ({ code }) => (
+                  <TouchableOpacity
+                    key={code}
+                    onPress={() => {
+                      i18n.changeLanguage(code);
+                      setLanguageModalVisible(false);
+                    }}
+                    style={{
+                      paddingVertical: 10,
+                      backgroundColor: i18n.language === code ? theme.primary : "transparent",
+                      borderRadius: 6,
+                      marginBottom: 10,
+                    }}
+                  >
+                    <Text
+                      style={{
+                        textAlign: "center",
+                        fontWeight: "bold",
+                        color: i18n.language === code ? "#fff" : theme.text,
+                      }}
+                    >
+                      {t(`language.${code}`)}
+                    </Text>
+                  </TouchableOpacity>
+                )
+              )}
             </View>
           </TouchableOpacity>
         </Modal>
@@ -255,17 +343,17 @@ export default function Profile() {
         }
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
-            <Ionicons
-              name="cut-outline"
-              size={50}
-              color={COLORS.textSecondary}
-            />
-            <Text style={[styles.emptyText, { color: theme.text }]}>No barbers found.</Text>
+            <Ionicons name="cut-outline" size={50} color={COLORS.textSecondary} />
+            <Text style={[styles.emptyText, { color: theme.text }]}>
+              {t("emptyListMessage")}
+            </Text>
             <TouchableOpacity
               style={styles.addButton}
               onPress={() => router.push("/create")}
             >
-              <Text style={[styles.addButtonText, { color: theme.text }]}>Add your first Barber</Text>
+              <Text style={[styles.addButtonText, { color: theme.text }]}>
+                {t("addFirstBarber")}
+              </Text>
             </TouchableOpacity>
           </View>
         }

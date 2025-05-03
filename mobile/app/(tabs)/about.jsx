@@ -13,6 +13,7 @@ import {
 import { useTheme } from "../../context/ThemeContext";
 import COLORS from "../../constants/colors";
 import { Ionicons } from "@expo/vector-icons";
+import { useTranslation } from "react-i18next"; 
 
 const { width } = Dimensions.get("window");
 
@@ -24,6 +25,8 @@ export default function About() {
   const tribeRef = useRef(null);
   const missionRef = useRef(null);
   const contactRef = useRef(null);
+
+  const { t } = useTranslation(); // Hook de tradução
 
   const scrollToSection = (ref) => {
     const scrollNode = findNodeHandle(scrollRef.current);
@@ -69,26 +72,26 @@ export default function About() {
             { color: isDark ? "#FFB6C1" : "white" },
           ]}
         >
-          Where Style Meets Confidence ✨
+          {t("about.slogan")}
         </Text>
         <View style={styles.navRow}>
           <TouchableOpacity
             style={styles.navButton}
             onPress={() => scrollToSection(tribeRef)}
           >
-            <Text style={styles.navText}>Our Group</Text>
+            <Text style={styles.navText}>{t("about.nav_group")}</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.navButton}
             onPress={() => scrollToSection(missionRef)}
           >
-            <Text style={styles.navText}>Mission</Text>
+            <Text style={styles.navText}>{t("about.nav_mission")}</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.navButton}
             onPress={() => scrollToSection(contactRef)}
           >
-            <Text style={styles.navText}>Contact</Text>
+            <Text style={styles.navText}>{t("about.nav_contact")}</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -103,65 +106,48 @@ export default function About() {
 
       <View ref={tribeRef} style={styles.section}>
         <Text style={[styles.sectionTitle, { color: theme.primary }]}>
-          🎯 Our Group
+          {t("about.section_tribe")}
         </Text>
         <Text style={[styles.text, { color: theme.text }]}>
-          The idea of VELLA was born in 2024, inspired by a shared frustration —
-          walking into barbershops and never quite feeling seen, heard, or
-          styled right. We wanted more than just a cut; we wanted connection,
-          identity, and impact. That’s when we decided to build something bold —
-          a space where culture, creativity, and confidence meet in every style.
+          {t("about.tribe_text_1")}
         </Text>
         <Text style={[styles.text, { color: theme.text }]}>
-          Our community is made of rebels, creatives, and newcomers — people
-          tired of average, seeking to leave a mark with every step, every fade,
-          every look. This is more than grooming. It's a movement. ✂️
+          {t("about.tribe_text_2")}
         </Text>
       </View>
 
       <View ref={missionRef} style={styles.section}>
         <Text style={[styles.sectionTitle, { color: theme.primary }]}>
-          🌟 Our Mission
+          {t("about.section_mission")}
         </Text>
         <Text style={[styles.text, { color: theme.text }]}>
-          VELLA exists to empower identity through fresh cuts and fearless
-          self-expression. We believe in clean lines, vibrant energy, and
-          stories told through style. Our mission is to make every individual
-          feel bold, authentic, and confident — whether on the street or on the
-          stage.
+          {t("about.mission_text_1")}
         </Text>
         <Text style={[styles.text, { color: theme.text }]}>
-          Every session is a collaboration. Every mirror a reminder: you are art
-          in motion. 🎨🪞
+          {t("about.mission_text_2")}
         </Text>
       </View>
 
       <View ref={contactRef} style={styles.section}>
         <Text style={[styles.sectionTitle, { color: theme.primary }]}>
-          📞 Contact Us
+          {t("about.section_contact")}
         </Text>
         <Text style={[styles.text, { color: theme.text }]}>
-          📧 Email: hello@vella.com
+          {t("about.contact_email")}
         </Text>
         <Text style={[styles.text, { color: theme.text }]}>
-          📞 Phone: +351 123 456 789
+          {t("about.contact_phone")}
         </Text>
         <Text style={[styles.text, { color: theme.text }]}>
-          📸 Instagram: @vella.style
+          {t("about.contact_instagram")}
         </Text>
         <Text style={[styles.text, { color: theme.text }]}>
-          💼 Work with us: careers@vella.com
+          {t("about.contact_work")}
         </Text>
       </View>
 
       <TouchableOpacity onPress={scrollToTop} style={styles.backToTopButton}>
-       {/*  <Ionicons
-          name="arrow-up-circle-outline"
-          size={20}
-          color="white"
-          style={{ marginRight: 8 }}
-        /> */}
-        <Text style={styles.backToTopText}>Back to Top</Text>
+        <Text style={styles.backToTopText}>{t("about.back_to_top")}</Text>
       </TouchableOpacity>
     </ScrollView>
   );

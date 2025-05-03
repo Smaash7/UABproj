@@ -10,8 +10,7 @@ import {
   Image,
   ActivityIndicator,
 } from "react-native";
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "expo-router";
 import styles from "../../assets/styles/create.styles";
 import { Ionicons } from "@expo/vector-icons";
@@ -19,6 +18,7 @@ import COLORS from "../../constants/colors";
 import { useAuthStore } from "../../store/authStore";
 import { API_URL } from "../../constants/api";
 import { useTheme } from "../../context/ThemeContext";
+import { useTranslation } from "react-i18next"; 
 
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
@@ -33,15 +33,15 @@ export default function Create() {
 
   const router = useRouter();
   const { token } = useAuthStore();
-
   const theme = useTheme();
+  const { t } = useTranslation();
 
   const pickImage = async () => {
     try {
       if (Platform.OS === "android") {
         const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (status !== "granted") {
-          Alert.alert("Permission to access camera roll is required for this feature to work");
+          Alert.alert(t("create.permission_alert")); 
           return;
         }
       }
@@ -56,7 +56,6 @@ export default function Create() {
 
       if (!result.canceled) {
         setImage(result.assets[0].uri);
-
         if (result.assets[0].base64) {
           setImageBase64(result.assets[0].base64);
         } else {
@@ -68,13 +67,13 @@ export default function Create() {
       }
     } catch (error) {
       console.error("Error picking image", error);
-      Alert.alert("Error picking image", error.message);
+      Alert.alert(t("create.image_error"), error.message);
     }
   };
 
   const handleSubmit = async () => {
     if (!title || !caption || !imageBase64 || !rating) {
-      Alert.alert("Please fill in all fields");
+      Alert.alert(t("create.fill_fields")); 
       return;
     }
 
@@ -101,9 +100,9 @@ export default function Create() {
       });
 
       const data = await response.json();
-      if (!response.ok) throw new Error(data.message || "Something went wrong");
+      if (!response.ok) throw new Error(data.message || t("create.generic_error"));
 
-      Alert.alert("Success", "Your barber has been created");
+      Alert.alert(t("create.success_title"), t("create.success_message")); 
       setTitle("");
       setCaption("");
       setRating(3);
@@ -112,7 +111,7 @@ export default function Create() {
       router.push("/");
     } catch (error) {
       console.error("Error creating barber", error);
-      Alert.alert("Error creating barber", error.message || "Something went wrong");
+      Alert.alert(t("create.error_title"), error.message || t("create.generic_error"));
     } finally {
       setLoading(false);
     }
@@ -164,13 +163,13 @@ export default function Create() {
           ]}
         >
           <View style={styles.header}>
-            <Text style={[styles.title, { color: theme.text }]}>Add Barber Recommendation</Text>
-            <Text style={[styles.subtitle, { color: theme.text }]}>Share your favorite barber with us!</Text>
+            <Text style={[styles.title, { color: theme.text }]}>{t("create.title")}</Text>
+            <Text style={[styles.subtitle, { color: theme.text }]}>{t("create.subtitle")}</Text>
           </View>
 
           <View style={styles.form}>
             <View style={styles.formGroup}>
-              <Text style={[styles.label, { color: theme.text }]}>Barber Name</Text>
+              <Text style={[styles.label, { color: theme.text }]}>{t("create.label_name")}</Text>
               <View style={[styles.inputContainer, { backgroundColor: theme.input }]}>
                 <Ionicons
                   name="storefront-outline"
@@ -180,7 +179,7 @@ export default function Create() {
                 />
                 <TextInput
                   style={[styles.input, { color: theme.text }]}
-                  placeholder="Barber Name"
+                  placeholder={t("create.placeholder_name")}
                   placeholderTextColor={COLORS.placeholderText}
                   value={title}
                   onChangeText={setTitle}
@@ -189,30 +188,32 @@ export default function Create() {
             </View>
 
             <View style={styles.formGroup}>
-              <Text style={[styles.label, { color: theme.text }]}>Your Rating</Text>
+              <Text style={[styles.label, { color: theme.text }]}>{t("create.label_rating")}</Text>
               {renderRatingPicker()}
             </View>
 
             <View style={styles.formGroup}>
-              <Text style={[styles.label, { color: theme.text }]}>Barber Image</Text>
+              <Text style={[styles.label, { color: theme.text }]}>{t("create.label_image")}</Text>
               <TouchableOpacity style={styles.imagePicker} onPress={pickImage}>
                 {image ? (
                   <Image source={{ uri: image }} style={styles.previewImage} />
                 ) : (
                   <View style={styles.placeholderContainer}>
                     <Ionicons name="image-outline" size={40} color={COLORS.textSecondary} />
-                    <Text style={[styles.placeholderText, { color: theme.text }]}>Tap to select image</Text>
+                    <Text style={[styles.placeholderText, { color: theme.text }]}>
+                      {t("create.image_placeholder")}
+                    </Text>
                   </View>
                 )}
               </TouchableOpacity>
             </View>
 
             <View style={styles.formGroup}>
-              <Text style={[styles.label, { color: theme.text }]}>Caption</Text>
+              <Text style={[styles.label, { color: theme.text }]}>{t("create.label_caption")}</Text>
               <View style={[styles.inputContainer, { backgroundColor: theme.input }]}>
                 <TextInput
                   style={[styles.input, { color: theme.text }]}
-                  placeholder="Write here your Review"
+                  placeholder={t("create.placeholder_caption")}
                   placeholderTextColor={COLORS.placeholderText}
                   value={caption}
                   onChangeText={setCaption}
@@ -236,7 +237,7 @@ export default function Create() {
                     color={COLORS.white}
                     style={styles.buttonIcon}
                   />
-                  <Text style={styles.buttonText}>Submit Review</Text>
+                  <Text style={styles.buttonText}>{t("create.submit_button")}</Text>
                 </>
               )}
             </TouchableOpacity>

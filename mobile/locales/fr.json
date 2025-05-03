@@ -1,0 +1,113 @@
+{
+    "signup": {
+      "title": "S'inscrire",
+      "create_account": "Créez votre compte",
+      "username": "Nom d'utilisateur",
+      "email": "E-mail",
+      "password": "Mot de passe",
+      "enter_username": "Entrez votre nom d'utilisateur",
+      "enter_email": "Entrez votre e-mail",
+      "enter_password": "Entrez votre mot de passe",
+      "sign_up": "S'inscrire",
+      "already_have_account": "Vous avez déjà un compte?",
+      "log_in": "Se connecter",
+      "error": "Erreur"
+    },
+    "welcome": {
+      "title": "Bienvenue dans notre application!",
+      "subtitle": "Veuillez patienter pendant que nous chargeons l'application..."
+    },
+    "login": {
+      "email": "E-mail",
+      "emailPlaceholder": "Entrez votre e-mail",
+      "password": "Mot de passe",
+      "passwordPlaceholder": "Entrez votre mot de passe",
+      "button": "Se connecter",
+      "footerText": "Vous n'avez pas de compte?",
+      "signUpLink": "S'inscrire",
+      "error": "Erreur",
+      "success": "Connexion réussie"
+    },
+    "about": {
+      "slogan": "Là où le style rencontre la confiance ✨",
+      "nav_group": "Notre groupe",
+      "nav_mission": "Mission",
+      "nav_contact": "Contact",
+      "section_tribe": "🎯 Notre groupe",
+      "tribe_text_1": "L'idée de VELLA est née en 2024, inspirée par une frustration partagée — entrer dans des salons de coiffure et ne jamais se sentir vraiment vu, entendu ou bien coiffé.",
+      "tribe_text_2": "Notre communauté est composée de rebelles, de créatifs et de nouveaux venus — des gens fatigués de l'ordinaire, cherchant à laisser une marque à chaque pas, chaque coupe, chaque regard.",
+      "section_mission": "🌟 Notre mission",
+      "mission_text_1": "VELLA existe pour renforcer l'identité à travers des coupes fraîches et une expression de soi sans peur.",
+      "mission_text_2": "Chaque session est une collaboration. Chaque miroir est un rappel : vous êtes une œuvre d'art en mouvement.",
+      "section_contact": "📞 Contactez-nous",
+      "contact_email": "📧 E-mail: hello@vella.com",
+      "contact_phone": "📞 Téléphone: +351 123 456 789",
+      "contact_instagram": "📸 Instagram: @vella.style",
+      "contact_work": "💼 Travaillez avec nous: careers@vella.com",
+      "back_to_top": "Retour en haut"
+    },
+    "create": {
+      "title": "Ajouter une recommandation de coiffeur",
+      "subtitle": "Partagez votre coiffeur préféré avec nous!",
+      "barberName": "Nom du coiffeur",
+      "rating": "Votre note",
+      "image": "Image du coiffeur",
+      "selectImage": "Touchez pour sélectionner une image",
+      "caption": "Légende",
+      "captionPlaceholder": "Écrivez ici votre avis",
+      "submit": "Envoyer l'avis",
+      "loading": "Envoi en cours...",
+      "alertMissingFields": "Veuillez remplir tous les champs",
+      "alertPermission": "L'autorisation d'accéder à la galerie est nécessaire pour que cette fonctionnalité fonctionne",
+      "alertSuccessTitle": "Succès",
+      "alertSuccessMessage": "Votre coiffeur a été créé",
+      "alertErrorTitle": "Erreur lors de la création du coiffeur",
+      "alertErrorGeneric": "Quelque chose s'est mal passé",
+      "alertErrorPickImage": "Erreur lors de la sélection de l'image"
+    },
+    "home": {
+      "headerTitle": "Recommandations Bella ✨",
+      "headerSubtitle": "Découvrez et partagez les meilleurs coiffeurs approuvés par la communauté 💈",
+      "sharedOn": "Partagé le",
+      "noRecommendations": "Pas de recommandations",
+      "noRecommendationsSubtext": "Soyez le premier à partager un coiffeur",
+      "errorFetching": "Échec du chargement des coiffeurs"
+    },
+    "tabs": {
+      "home": "Accueil",
+      "create": "Créer",
+      "profile": "Profil",
+      "about": "À propos"
+    },
+    "errors": {
+      "fetchBarbers": "Impossible de charger les coiffeurs.",
+      "failedDeleteBarber": "Échec de la suppression du coiffeur",
+      "error": "Erreur"
+    },
+    "success": {
+      "deleteBarberTitle": "Succès",
+      "deleteBarberMessage": "Coiffeur supprimé avec succès"
+    },
+    "confirmDelete": {
+      "title": "Confirmer la suppression",
+      "message": "Êtes-vous sûr de vouloir supprimer ce coiffeur?"
+    },
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "theme": {
+      "light": "🌞 Thème clair",
+      "dark": "🌚 Thème sombre"
+    },
+    "selectTheme": "Sélectionner le thème",
+    "emptyListMessage": "Aucun coiffeur trouvé.",
+    "addFirstBarber": "Ajoutez votre premier coiffeur",
+    "selectLanguage": "Choisir la langue",
+  "language": {
+    "en": "Anglais",
+    "pt": "Portugais",
+    "sl": "Slovène",
+    "de": "Allemand",
+    "fr": "Français"
+  }
+  }
+  

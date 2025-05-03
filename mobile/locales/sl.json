@@ -1,6 +1,112 @@
 {
-    "select_language": "Izberite jezik",
-    "light_theme": "Svetla tema",
-    "dark_theme": "Temna tema"
+  "signup": {
+    "title": "Prijavite se",
+    "create_account": "Ustvarite račun",
+    "username": "Uporabniško ime",
+    "email": "E-pošta",
+    "password": "Geslo",
+    "enter_username": "Vnesite svoje uporabniško ime",
+    "enter_email": "Vnesite svojo e-pošto",
+    "enter_password": "Vnesite svoje geslo",
+    "sign_up": "Prijavite se",
+    "already_have_account": "Imate že račun?",
+    "log_in": "Prijava",
+    "error": "Napaka"
+  },
+  "welcome": {
+    "title": "Dobrodošli v naši aplikaciji!",
+    "subtitle": "Počakajte, medtem ko nalagamo aplikacijo..."
+  },
+  "login": {
+    "email": "E-pošta",
+    "emailPlaceholder": "Vnesite svojo e-pošto",
+    "password": "Geslo",
+    "passwordPlaceholder": "Vnesite svoje geslo",
+    "button": "Prijava",
+    "footerText": "Nimate računa?",
+    "signUpLink": "Prijavite se",
+    "error": "Napaka",
+    "success": "Uspešno prijavljeni"
+  },
+  "about": {
+    "slogan": "Kjer se stil sreča z zaupanjem ✨",
+    "nav_group": "Naša skupina",
+    "nav_mission": "Poslanstvo",
+    "nav_contact": "Kontakt",
+    "section_tribe": "🎯 Naša skupina",
+    "tribe_text_1": "Ideja za VELLO se je rodila leta 2024, navdihnjena z skupno frustracijo — vstopiti v frizerske salone in nikoli se ne počutiti zares opazne, slišane ali ustrezno oblikovane.",
+    "tribe_text_2": "Naša skupnost je sestavljena iz upornikov, ustvarjalcev in novincev — ljudi, ki so siti povprečnega, ki si prizadevajo pustiti pečat s vsakim korakom, vsakim odbitkom, vsakim videzom.",
+    "section_mission": "🌟 Naša misija",
+    "mission_text_1": "VELLA obstaja, da opolnomoči identiteto skozi sveže odbitke in pogumno izražanje sebe.",
+    "mission_text_2": "Vsaka seja je sodelovanje. Vsak ogledalo je opomnik: ste umetnost v gibanju.",
+    "section_contact": "📞 Kontaktirajte nas",
+    "contact_email": "📧 E-pošta: hello@vella.com",
+    "contact_phone": "📞 Telefon: +351 123 456 789",
+    "contact_instagram": "📸 Instagram: @vella.style",
+    "contact_work": "💼 Sodelujte z nami: careers@vella.com",
+    "back_to_top": "Nazaj na vrh"
+  },
+  "create": {
+    "title": "Dodaj priporočilo za frizerja",
+    "subtitle": "Delite svoje najljubše frizerje z nami!",
+    "barberName": "Ime frizerja",
+    "rating": "Vaša ocena",
+    "image": "Slika frizerja",
+    "selectImage": "Tapnite za izbiro slike",
+    "caption": "Opis",
+    "captionPlaceholder": "Pišite svojo recenzijo tukaj",
+    "submit": "Pošlji oceno",
+    "loading": "Pošiljanje...",
+    "alertMissingFields": "Izpolnite vsa polja",
+    "alertPermission": "Za to funkcijo je potrebno dovoljenje za dostop do fotoaparata",
+    "alertSuccessTitle": "Uspešno",
+    "alertSuccessMessage": "Vaš frizer je bil ustvarjen",
+    "alertErrorTitle": "Napaka pri ustvarjanju frizerja",
+    "alertErrorGeneric": "Nekaj je šlo narobe",
+    "alertErrorPickImage": "Napaka pri izbiri slike"
+  },
+  "home": {
+    "headerTitle": "Priporočila Bella ✨",
+    "headerSubtitle": "Odkrijte in delite najbolj cenjene frizerje, ki jim zaupajo v skupnosti 💈",
+    "sharedOn": "Deljeno dne",
+    "noRecommendations": "Ni priporočil",
+    "noRecommendationsSubtext": "Bodite prvi, ki bo delil frizerja",
+    "errorFetching": "Napaka pri nalaganju frizerjev"
+  },
+  "tabs": {
+    "home": "Domov",
+    "create": "Ustvari",
+    "profile": "Profil",
+    "about": "O nas"
+  },
+  "errors": {
+    "fetchBarbers": "Napaka pri nalaganju frizerjev.",
+    "failedDeleteBarber": "Napaka pri brisanju frizerja",
+    "error": "Napaka"
+  },
+  "success": {
+    "deleteBarberTitle": "Uspešno",
+    "deleteBarberMessage": "Frizer je bil uspešno izbrisan"
+  },
+  "confirmDelete": {
+    "title": "Potrdite brisanje",
+    "message": "Ste prepričani, da želite izbrisati tega frizerja?"
+  },
+  "cancel": "Prekliči",
+  "delete": "Izbriši",
+  "theme": {
+    "light": "🌞 Svetel način",
+    "dark": "🌚 Temen način"
+  },
+  "selectTheme": "Izberite temo",
+  "emptyListMessage": "Ni frizerjev.",
+  "addFirstBarber": "Dodajte svojega prvega frizerja",
+  "selectLanguage": "Izberi jezik",
+  "language": {
+    "en": "Angleščina",
+    "pt": "Portugalščina",
+    "sl": "Slovenščina",
+    "de": "Nemščina",
+    "fr": "Francoščina"
   }
-  
+}
