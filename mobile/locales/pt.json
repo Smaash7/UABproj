@@ -1,0 +1,49 @@
+{
+  "signup": {
+    "title": "Cadastre-se",
+    "create_account": "Crie sua conta",
+    "username": "Nome de usuário",
+    "email": "E-mail",
+    "password": "Senha",
+    "enter_username": "Digite seu nome de usuário",
+    "enter_email": "Digite seu e-mail",
+    "enter_password": "Digite sua senha",
+    "sign_up": "Cadastrar",
+    "already_have_account": "Já tem uma conta?",
+    "log_in": "Entrar",
+    "error": "Erro"
+  },
+  "welcome": {
+    "title": "Bem-vindo ao nosso app!",
+    "subtitle": "Por favor, aguarde enquanto carregamos o app..."
+  },
+  "login": {
+    "email": "E-mail",
+    "emailPlaceholder": "Digite seu e-mail",
+    "password": "Senha",
+    "passwordPlaceholder": "Digite sua senha",
+    "button": "Entrar",
+    "footerText": "Não tem uma conta?",
+    "signUpLink": "Cadastrar",
+    "error": "Erro",
+    "success": "Login realizado com sucesso"
+  },
+  "about": {
+    "slogan": "Onde o Estilo Encontra a Confiança ✨",
+    "nav_group": "Nosso Grupo",
+    "nav_mission": "Missão",
+    "nav_contact": "Contato",
+    "section_tribe": "🎯 Nosso Grupo",
+    "tribe_text_1": "A ideia da VELLA nasceu em 2024, inspirada por uma frustração compartilhada — entrar em barbearias e nunca realmente se sentir visto, ouvido ou bem estilizado.",
+    "tribe_text_2": "Nossa comunidade é formada por rebeldes, criativos e recém-chegados — pessoas cansadas da média, que buscam deixar sua marca a cada passo, cada corte, cada look.",
+    "section_mission": "🌟 Nossa Missão",
+    "mission_text_1": "A VELLA existe para empoderar identidades por meio de cortes modernos e autoexpressão ousada.",
+    "mission_text_2": "Cada sessão é uma colaboração. Cada espelho é um lembrete: você é arte em movimento.",
+    "section_contact": "📞 Contate-nos",
+    "contact_email": "📧 E-mail: hello@vella.com",
+    "contact_phone": "📞 Telefone: +351 123 456 789",
+    "contact_instagram": "📸 Instagram: @vella.style",
+    "contact_work": "💼 Trabalhe connosco: careers@vella.com",
+    "back_to_top": "Voltar ao topo"
+  }
+}

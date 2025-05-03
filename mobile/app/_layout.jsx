@@ -1,3 +1,4 @@
+import '../i18n';
 import { Stack, useRouter, useSegments } from "expo-router";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import SafeScreen from "../components/SafeScreen";
@@ -5,6 +6,7 @@ import { StatusBar } from "expo-status-bar";
 import { useAuthStore } from "../store/authStore";
 import { useEffect } from "react";
 import { ThemeProvider } from "../context/ThemeContext";
+
 
 export default function RootLayout() {
   const router = useRouter();

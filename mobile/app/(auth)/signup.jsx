@@ -15,6 +15,7 @@ import { useState } from "react";
 import { useRouter } from "expo-router";
 import { useAuthStore } from "../../store/authStore";
 import { useTheme } from "../../context/ThemeContext";
+import { useTranslation } from "react-i18next"; // Importar a função de tradução
 
 export default function Signup() {
   const [username, setUsername] = useState("");
@@ -23,14 +24,14 @@ export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
 
   const { user, isLoading, register, token } = useAuthStore();
-
   const router = useRouter();
   const { name, toggleTheme } = useTheme();
   const { name: themeName } = useTheme();
+  const { t } = useTranslation(); 
 
   const handleSignUp = async () => {
     const result = await register(username, email, password);
-    if (!result.success) Alert.alert("Error", result.message);
+    if (!result.success) Alert.alert(t("error"), result.message); 
   };
 
   return (
@@ -39,10 +40,7 @@ export default function Signup() {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <View
-        style={[
-          styles.container,
-          { backgroundColor: name === "dark" ? "#2a0b1d" : "#ffeef8" },
-        ]}
+        style={[styles.container, { backgroundColor: name === "dark" ? "#2a0b1d" : "#ffeef8" }]}
       >
         {/* Dark Mode Toggle */}
         <TouchableOpacity
@@ -70,12 +68,9 @@ export default function Signup() {
         </TouchableOpacity>
 
         <View
-          style={[
-            styles.card,
-            { backgroundColor: name === "dark" ? "#3b0a36" : "white" },
-          ]}
+          style={[styles.card, { backgroundColor: name === "dark" ? "#3b0a36" : "white" }]}
         >
-          {/*HEADER*/}
+          {/* HEADER */}
           <View style={styles.header}>
             <Text
               style={[
@@ -83,7 +78,7 @@ export default function Signup() {
                 { color: name === "dark" ? "#ffeef8" : COLORS.textPrimary },
               ]}
             >
-              Signup
+              {t('signup.title')} 
             </Text>
             <Text
               style={[
@@ -91,19 +86,19 @@ export default function Signup() {
                 { color: name === "dark" ? "#ffeef8" : COLORS.textSecondary },
               ]}
             >
-              Create your account
+              {t('signup.create_account')} 
             </Text>
           </View>
 
           <View style={styles.formContainer}>
-            {/*Username Input */}
+            {/* Username Input */}
             <Text
               style={[
                 styles.label,
                 { color: name === "dark" ? "#ffeef8" : COLORS.textPrimary },
               ]}
             >
-              Username
+              {t('signup.username')} 
             </Text>
             <View
               style={[
@@ -127,10 +122,8 @@ export default function Signup() {
                   styles.input,
                   { color: themeName === "dark" ? "#ffeef8" : COLORS.textDark },
                 ]}
-                placeholder="Enter your username"
-                placeholderTextColor={
-                  name === "dark" ? "#ffeef8" : COLORS.placeholderText
-                }
+                placeholder={t('signup.enter_username')} 
+                placeholderTextColor={name === "dark" ? "#ffeef8" : COLORS.placeholderText}
                 value={username}
                 onChangeText={setUsername}
                 autoCapitalize="none"
@@ -145,7 +138,7 @@ export default function Signup() {
                   { color: name === "dark" ? "#ffeef8" : COLORS.textPrimary },
                 ]}
               >
-                Email
+                {t('signup.email')} 
               </Text>
               <View
                 style={[
@@ -171,10 +164,8 @@ export default function Signup() {
                       color: themeName === "dark" ? "#ffeef8" : COLORS.textDark,
                     },
                   ]}
-                  placeholder="Enter your email"
-                  placeholderTextColor={
-                    name === "dark" ? "#ffeef8" : COLORS.placeholderText
-                  }
+                  placeholder={t('signup.enter_email')}
+                  placeholderTextColor={name === "dark" ? "#ffeef8" : COLORS.placeholderText}
                   value={email}
                   onChangeText={setEmail}
                   keyboardType="email-address"
@@ -183,7 +174,7 @@ export default function Signup() {
               </View>
             </View>
 
-            {/*Password Input*/}
+            {/* Password Input */}
             <View style={styles.inputGroup}>
               <Text
                 style={[
@@ -191,7 +182,7 @@ export default function Signup() {
                   { color: name === "dark" ? "#ffeef8" : COLORS.textPrimary },
                 ]}
               >
-                Password
+                {t('signup.password')} 
               </Text>
               <View
                 style={[
@@ -217,10 +208,8 @@ export default function Signup() {
                       color: themeName === "dark" ? "#ffeef8" : COLORS.textDark,
                     },
                   ]}
-                  placeholder="Enter your password"
-                  placeholderTextColor={
-                    name === "dark" ? "#ffeef8" : COLORS.placeholderText
-                  }
+                  placeholder={t('signup.enter_password')}
+                  placeholderTextColor={name === "dark" ? "#ffeef8" : COLORS.placeholderText}
                   value={password}
                   onChangeText={setPassword}
                   secureTextEntry={!showPassword}
@@ -238,7 +227,7 @@ export default function Signup() {
               </View>
             </View>
 
-            {/*Sign Up*/}
+            {/* Sign Up Button */}
             <TouchableOpacity
               style={[styles.button, { backgroundColor: COLORS.primary }]}
               onPress={handleSignUp}
@@ -247,7 +236,7 @@ export default function Signup() {
               {isLoading ? (
                 <ActivityIndicator color="#fff" />
               ) : (
-                <Text style={styles.buttonText}>Sign Up</Text>
+                <Text style={styles.buttonText}>{t('signup.sign_up')}</Text> 
               )}
             </TouchableOpacity>
 
@@ -259,11 +248,11 @@ export default function Signup() {
                   { color: name === "dark" ? "#ffeef8" : COLORS.textSecondary },
                 ]}
               >
-                Already have an account?{" "}
+                {t('signup.already_have_account')}{" "}
               </Text>
               <TouchableOpacity onPress={() => router.push("/(auth)")}>
                 <Text style={[styles.link, { color: COLORS.primary }]}>
-                  Log In
+                  {t('signup.log_in')} {/* Substituir texto do link por tradução */}
                 </Text>
               </TouchableOpacity>
             </View>

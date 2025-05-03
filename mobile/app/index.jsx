@@ -2,9 +2,11 @@ import { useEffect } from "react";
 import { View, Text, Image, ActivityIndicator, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
+import { useTranslation } from "react-i18next"; 
 
 export default function Welcome() {
   const router = useRouter();
+  const { t } = useTranslation(); 
 
   useEffect(() => {
     console.log("Redirecting in 5s...");
@@ -22,12 +24,12 @@ export default function Welcome() {
       style={styles.container}
     >
       <Image
-        source={require("../assets/images/logo.png")} // muda para o teu ficheiro
+        source={require("../assets/images/logo.png")}
         style={styles.logo}
         resizeMode="contain"
       />
-      <Text style={styles.title}>Welcome to our app!</Text>
-      <Text style={styles.subtitle}> Please wait while we load the app...</Text>
+      <Text style={styles.title}>{t("welcome.title")}</Text>        
+      <Text style={styles.subtitle}>{t("welcome.subtitle")}</Text>  
       <ActivityIndicator size="large" color="#ff5c8d" style={styles.loader} />
     </LinearGradient>
   );

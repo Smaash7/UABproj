@@ -1,0 +1,49 @@
+{
+  "signup": {
+    "title": "Sign Up",
+    "create_account": "Create your account",
+    "username": "Username",
+    "email": "Email",
+    "password": "Password",
+    "enter_username": "Enter your username",
+    "enter_email": "Enter your email",
+    "enter_password": "Enter your password",
+    "sign_up": "Sign Up",
+    "already_have_account": "Already have an account?",
+    "log_in": "Log In",
+    "error": "Error"
+  },
+  "welcome": {
+    "title": "Welcome to our app!",
+    "subtitle": "Please wait while we load the app..."
+  },
+  "login": {
+    "email": "Email",
+    "emailPlaceholder": "Enter your email",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "button": "Log In",
+    "footerText": "Don't have an account?",
+    "signUpLink": "Sign Up",
+    "error": "Error",
+    "success": "Logged in successfully"
+  },
+  "about": {
+    "slogan": "Where Style Meets Confidence ✨",
+    "nav_group": "Our Group",
+    "nav_mission": "Mission",
+    "nav_contact": "Contact",
+    "section_tribe": "🎯 Our Group",
+    "tribe_text_1": "The idea of VELLA was born in 2024, inspired by a shared frustration — walking into barbershops and never quite feeling seen, heard, or styled right.",
+    "tribe_text_2": "Our community is made of rebels, creatives, and newcomers — people tired of average, seeking to leave a mark with every step, every fade, every look.",
+    "section_mission": "🌟 Our Mission",
+    "mission_text_1": "VELLA exists to empower identity through fresh cuts and fearless self-expression.",
+    "mission_text_2": "Every session is a collaboration. Every mirror a reminder: you are art in motion.",
+    "section_contact": "📞 Contact Us",
+    "contact_email": "📧 Email: hello@vella.com",
+    "contact_phone": "📞 Phone: +351 123 456 789",
+    "contact_instagram": "📸 Instagram: @vella.style",
+    "contact_work": "💼 Work with us: careers@vella.com",
+    "back_to_top": "Back to Top"
+  }
+}

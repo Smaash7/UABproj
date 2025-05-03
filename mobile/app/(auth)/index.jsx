@@ -16,6 +16,7 @@ import COLORS from "../../constants/colors";
 import { useRouter } from "expo-router";
 import { useAuthStore } from "../../store/authStore";
 import { useTheme } from "../../context/ThemeContext";
+import { useTranslation } from "react-i18next";    // ← Importar hook
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -24,13 +25,14 @@ export default function Login() {
   const { isLoading, login } = useAuthStore();
   const router = useRouter();
   const { name, toggleTheme } = useTheme();
+  const { t } = useTranslation();                  
 
   const handleLogin = async () => {
     const result = await login(email, password);
     if (!result.success) {
-      Alert.alert("Error", result.message);
+      Alert.alert(t("login.error"), result.message); 
     } else {
-      console.log("Login feito com sucesso");
+      console.log(t("login.success"));               
     }
   };
 
@@ -80,10 +82,7 @@ export default function Login() {
         </View>
 
         <View
-          style={[
-            styles.card,
-            { backgroundColor: name === "dark" ? "#3b0a36" : "white" },
-          ]}
+          style={[styles.card, { backgroundColor: name === "dark" ? "#3b0a36" : "white" }]}
         >
           <View style={styles.formContainer}>
             {/* EMAIL */}
@@ -94,7 +93,7 @@ export default function Login() {
                   { color: name === "dark" ? "#ffeef8" : COLORS.textPrimary },
                 ]}
               >
-                Email
+                {t("login.email")}                         
               </Text>
               <View
                 style={[
@@ -114,9 +113,11 @@ export default function Login() {
                   style={styles.inputIcon}
                 />
                 <TextInput
-                  style={[styles.input, { color: name === "dark" ? "#ffeef8" : COLORS.textDark }]}
-
-                  placeholder="Enter your email"
+                  style={[
+                    styles.input,
+                    { color: name === "dark" ? "#ffeef8" : COLORS.textDark },
+                  ]}
+                  placeholder={t("login.emailPlaceholder")}
                   placeholderTextColor={
                     name === "dark" ? "#ffeef8" : COLORS.placeholderText
                   }
@@ -136,7 +137,7 @@ export default function Login() {
                   { color: name === "dark" ? "#ffeef8" : COLORS.textPrimary },
                 ]}
               >
-                Password
+                {t("login.password")}                       {/* ← tradução */}
               </Text>
               <View
                 style={[
@@ -156,9 +157,11 @@ export default function Login() {
                   style={styles.inputIcon}
                 />
                 <TextInput
-                  style={[styles.input, { color: name === "dark" ? "#ffeef8" : COLORS.textDark }]}
-
-                  placeholder="Enter your password"
+                  style={[
+                    styles.input,
+                    { color: name === "dark" ? "#ffeef8" : COLORS.textDark },
+                  ]}
+                  placeholder={t("login.passwordPlaceholder")}
                   placeholderTextColor={
                     name === "dark" ? "#ffeef8" : COLORS.placeholderText
                   }
@@ -188,7 +191,7 @@ export default function Login() {
               {isLoading ? (
                 <ActivityIndicator color="#fff" />
               ) : (
-                <Text style={styles.buttonText}>Login</Text>
+                <Text style={styles.buttonText}>{t("login.button")}</Text> 
               )}
             </TouchableOpacity>
 
@@ -200,10 +203,12 @@ export default function Login() {
                   { color: name === "dark" ? "#ffeef8" : COLORS.textSecondary },
                 ]}
               >
-                Don't have an account?
+                {t("login.footerText")}                    {/* ← tradução */}
               </Text>
               <TouchableOpacity onPress={() => router.push("/(auth)/signup")}>
-                <Text style={[styles.link, { color: COLORS.primary }]}>Sign Up</Text>
+                <Text style={[styles.link, { color: COLORS.primary }]}>
+                  {t("login.signUpLink")}                  {/* ← tradução */}
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
