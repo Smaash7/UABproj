@@ -78,15 +78,18 @@
     "create": "Ustvari",
     "profile": "Profil",
     "about": "O nas"
-  },
+},
   "errors": {
     "fetchBarbers": "Napaka pri nalaganju frizerjev.",
     "failedDeleteBarber": "Napaka pri brisanju frizerja",
-    "error": "Napaka"
+    "error": "Napaka",
+    "invalidName": "Ime ne sme biti prazno.",
+    "usernameExists": "Uporabniško ime že obstaja."
   },
   "success": {
     "deleteBarberTitle": "Uspešno",
-    "deleteBarberMessage": "Frizer je bil uspešno izbrisan"
+    "deleteBarberMessage": "Frizer je bil uspešno izbrisan",
+    "nameUpdated": "Ime uspešno posodobljeno!"
   },
   "confirmDelete": {
     "title": "Potrdite brisanje",
@@ -108,5 +111,12 @@
     "sl": "Slovenščina",
     "de": "Nemščina",
     "fr": "Francoščina"
+  },
+  "editYourName": "Uredi svoje ime",
+  "enterNewName": "Vnesite novo ime",
+  "save": "Shrani",
+  "headerprofile": {
+    "joined": "Pridružil se"
   }
 }
+  

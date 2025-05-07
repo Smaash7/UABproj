@@ -82,11 +82,14 @@
     "errors": {
       "fetchBarbers": "Impossible de charger les coiffeurs.",
       "failedDeleteBarber": "Échec de la suppression du coiffeur",
-      "error": "Erreur"
+      "error": "Erreur",
+      "invalidName": "Le nom ne peut pas être vide.",
+      "usernameExists": "Le nom d'utilisateur existe déjà."
     },
     "success": {
       "deleteBarberTitle": "Succès",
-      "deleteBarberMessage": "Coiffeur supprimé avec succès"
+      "deleteBarberMessage": "Coiffeur supprimé avec succès",
+      "nameUpdated": "Nom mis à jour avec succès!"
     },
     "confirmDelete": {
       "title": "Confirmer la suppression",
@@ -102,12 +105,18 @@
     "emptyListMessage": "Aucun coiffeur trouvé.",
     "addFirstBarber": "Ajoutez votre premier coiffeur",
     "selectLanguage": "Choisir la langue",
-  "language": {
-    "en": "Anglais",
-    "pt": "Portugais",
-    "sl": "Slovène",
-    "de": "Allemand",
-    "fr": "Français"
+    "language": {
+      "en": "Anglais",
+      "pt": "Portugais",
+      "sl": "Slovène",
+      "de": "Allemand",
+      "fr": "Français"
+    },
+    "editYourName": "Modifier votre nom",
+    "enterNewName": "Entrez un nouveau nom",
+    "save": "Sauvegarder",
+    "headerprofile": {
+    "joined": "Inscrit le"
   }
   }
-  
+    

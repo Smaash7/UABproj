@@ -82,11 +82,14 @@
   "errors": {
     "fetchBarbers": "Falha ao carregar barbeiros.",
     "failedDeleteBarber": "Falha ao excluir o barbeiro",
-    "error": "Erro"
+    "error": "Erro",
+    "invalidName": "Nome não pode estar vazio.",
+    "usernameExists": "Nome de usuário já existe."
   },
   "success": {
     "deleteBarberTitle": "Sucesso",
-    "deleteBarberMessage": "Barbeiro excluído com sucesso"
+    "deleteBarberMessage": "Barbeiro excluído com sucesso",
+    "nameUpdated": "Nome atualizado com sucesso!"
   },
   "confirmDelete": {
     "title": "Confirmar Exclusão",
@@ -108,5 +111,12 @@
     "sl": "Esloveno",
     "de": "Alemão",
     "fr": "Francês"
+  },
+  "editYourName": "Edite seu nome",
+  "enterNewName": "Digite o novo nome",
+  "save": "Salvar",
+  "headerprofile": {
+    "joined": "Entrou em"
   }
 }
+  

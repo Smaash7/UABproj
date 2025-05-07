@@ -82,11 +82,14 @@
     "errors": {
       "fetchBarbers": "Fehler beim Laden der Friseure.",
       "failedDeleteBarber": "Fehler beim Löschen des Friseurs",
-      "error": "Fehler"
+      "error": "Fehler",
+      "invalidName": "Name darf nicht leer sein.",
+      "usernameExists": "Benutzername existiert bereits."
     },
     "success": {
       "deleteBarberTitle": "Erfolg",
-      "deleteBarberMessage": "Friseur erfolgreich gelöscht"
+      "deleteBarberMessage": "Friseur erfolgreich gelöscht",
+      "nameUpdated": "Name erfolgreich aktualisiert!"
     },
     "confirmDelete": {
       "title": "Bestätigen Sie das Löschen",
@@ -102,12 +105,18 @@
     "emptyListMessage": "Keine Friseure gefunden.",
     "addFirstBarber": "Fügen Sie Ihren ersten Friseur hinzu",
     "selectLanguage": "Sprache auswählen",
-  "language": {
-    "en": "Englisch",
-    "pt": "Portugiesisch",
-    "sl": "Slowenisch",
-    "de": "Deutsch",
-    "fr": "Französisch"
+    "language": {
+      "en": "Englisch",
+      "pt": "Portugiesisch",
+      "sl": "Slowenisch",
+      "de": "Deutsch",
+      "fr": "Französisch"
+    },
+    "editYourName": "Bearbeiten Sie Ihren Namen",
+    "enterNewName": "Geben Sie einen neuen Namen ein",
+    "save": "Speichern",
+    "headerprofile": {
+    "joined": "Beigetreten am"
   }
   }
   

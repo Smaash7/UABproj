@@ -99,74 +99,74 @@ export default function Profile() {
 
  
 
-const handleUpdateName = async () => {
-  if (!newName.trim()) {
-    Toast.show({
-      type: 'error',
-      text1: t("errors.invalidName"),
-      position: 'top',
-      visibilityTime: 3000,
-    });
-    return;
-  }
-
-  try {
-    setIsUpdatingName(true);
-
-    const response = await fetch(`${API_URL}/users/name`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ newUsername: newName }),
-    });
-
-    if (!response.ok) {
-      const text = await response.text(); // lê a resposta como texto para debug
-      if (response.status === 400 && text.includes("username already exists")) {
-        // Se o nome de usuário já existir
-        Toast.show({
-          type: 'error',
-          text1: t("errors.usernameExists"),
-          position: 'top',
-          visibilityTime: 3000,
-        });
-        return;
+  const handleUpdateName = async () => {
+    if (!newName.trim()) {
+      Toast.show({
+        type: 'error',
+        text1: t("errors.invalidName"),
+        position: 'top',
+        visibilityTime: 3000,
+      });
+      return;
+    }
+  
+    try {
+      setIsUpdatingName(true);
+  
+      const response = await fetch(`${API_URL}/users/name`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ newUsername: newName }),
+      });
+  
+      if (!response.ok) {
+        const text = await response.text(); // lê a resposta como texto para debug
+        if (response.status === 400 && text.includes("username already exists")) {
+          // Se o nome de usuário já existir
+          Toast.show({
+            type: 'error',
+            text1: t("errors.usernameExists"),
+            position: 'top',
+            visibilityTime: 3000,
+          });
+          return;
+        }
+        throw new Error(`Erro ${response.status}: ${text}`);
       }
-      throw new Error(`Erro ${response.status}: ${text}`);
+  
+      const data = await response.json(); // só tenta parsear JSON se ok
+  
+      // Atualiza o nome na store global
+      const { user, updateUser } = useAuthStore.getState();
+      if (user) {
+        updateUser({ ...user, username: newName });
+      }
+  
+      setEditNameModalVisible(false);
+      setNewName("");
+  
+      // Mensagem de sucesso
+      Toast.show({
+        type: 'success',
+        text1: t("success.nameUpdated"),
+        position: 'top',
+        visibilityTime: 3000,
+      });
+  
+    } catch (error) {
+      Toast.show({
+        type: 'error',
+        text1: error.message || t("errors.failedUpdateName"),
+        position: 'top',
+        visibilityTime: 3000,
+      });
+    } finally {
+      setIsUpdatingName(false);
     }
-
-    const data = await response.json(); // só tenta parsear JSON se ok
-
-    // Atualiza o nome na store global
-    const { user, updateUser } = useAuthStore.getState();
-    if (user) {
-      updateUser({ ...user, username: newName });
-    }
-
-    setEditNameModalVisible(false);
-    setNewName("");
-
-    // Mensagem de sucesso
-    Toast.show({
-      type: 'success',
-      text1: t("success.nameUpdated"),
-      position: 'top',
-      visibilityTime: 3000,
-    });
-
-  } catch (error) {
-    Toast.show({
-      type: 'error',
-      text1: error.message || t("errors.failedUpdateName"),
-      position: 'top',
-      visibilityTime: 3000,
-    });
-  } finally {
-    setIsUpdatingName(false);
-  }
-};
+  };
 
   
   
@@ -224,7 +224,7 @@ const handleUpdateName = async () => {
 
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
-      <ProfileHeader />
+      <ProfileHeader onEditPress={() => setEditNameModalVisible(true)} />
       <LogoutButton />
 
       <View style={{ paddingHorizontal: 10, marginBottom: 10 }}>
@@ -271,28 +271,6 @@ const handleUpdateName = async () => {
             }}
           >
             🌐 {t("selectLanguage")}
-          </Text>
-        </TouchableOpacity>
-
-        {/* Edit Name Button */}
-        <TouchableOpacity
-          onPress={() => setEditNameModalVisible(true)}
-          style={{
-            backgroundColor: theme.secondary,
-            padding: 10,
-            borderRadius: 8,
-            borderWidth: 1,
-            borderColor: theme.primary,
-          }}
-        >
-          <Text
-            style={{
-              color: theme.text,
-              fontWeight: "bold",
-              textAlign: "center",
-            }}
-          >
-            ✏️ {t("editName") || "Edit Name"}
           </Text>
         </TouchableOpacity>
 
@@ -432,79 +410,83 @@ const handleUpdateName = async () => {
         </Modal>
 
         {/* Edit Name Modal */}
+        
         <Modal
-          animationType="fade"
-          transparent
-          visible={editNameModalVisible}
-          onRequestClose={() => setEditNameModalVisible(false)}
+      animationType="fade"
+      transparent
+      visible={editNameModalVisible}
+      onRequestClose={() => setEditNameModalVisible(false)}
+    >
+      <TouchableOpacity
+        style={{
+          flex: 1,
+          backgroundColor: "rgba(0,0,0,0.5)",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+        activeOpacity={1}
+        onPressOut={() => setEditNameModalVisible(false)}
+      >
+        <View
+          style={{
+            backgroundColor: theme.background,
+            padding: 20,
+            borderRadius: 12,
+            width: "80%",
+          }}
         >
-          <TouchableOpacity
+          {/* Verifique se o texto está corretamente traduzido */}
+          <Text
             style={{
-              flex: 1,
-              backgroundColor: "rgba(0,0,0,0.5)",
-              justifyContent: "center",
+              fontSize: 18,
+              fontWeight: "bold",
+              marginBottom: 15,
+              color: theme.text,
+              textAlign: "center",
+            }}
+          >
+            {t("editYourName")} {/* Verifique se 'editYourName' está definido em seu arquivo de tradução */}
+          </Text>
+
+          <TextInput
+          placeholder={t("enterNewName")} // Verifique se 'enterNewName' está definido em seu arquivo de tradução
+          placeholderTextColor={COLORS.textSecondary}
+          value={newName}
+          onChangeText={setNewName}
+          style={{
+            backgroundColor: theme.secondary,
+            color: theme.text,
+            padding: 10,
+            borderRadius: 8,
+            marginBottom: 15,
+            borderColor: theme.primary,
+            borderWidth: 1,
+          }}
+        />
+
+          <TouchableOpacity
+            onPress={handleUpdateName}
+            style={{
+              backgroundColor: theme.primary,
+              padding: 12,
+              borderRadius: 8,
               alignItems: "center",
             }}
-            activeOpacity={1}
-            onPressOut={() => setEditNameModalVisible(false)}
+            disabled={isUpdatingName}
           >
-            <View
-              style={{
-                backgroundColor: theme.background,
-                padding: 20,
-                borderRadius: 12,
-                width: "80%",
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: 18,
-                  fontWeight: "bold",
-                  marginBottom: 15,
-                  color: theme.text,
-                  textAlign: "center",
-                }}
-              >
-                {t("editYourName") || "Edit your name"}
+            {/* Verifique se o texto do botão também está sendo traduzido */}
+            {isUpdatingName ? (
+              <ActivityIndicator color="#fff" />
+            ) : (
+              <Text style={{ color: "#fff", fontWeight: "bold" }}>
+                {t("save")} {/* Verifique se 'save' está definido em seu arquivo de tradução */}
               </Text>
-
-              <TextInput
-                placeholder={t("enterNewName") || "Enter new name"}
-                placeholderTextColor={COLORS.textSecondary}
-                value={newName}
-                onChangeText={setNewName}
-                style={{
-                  backgroundColor: theme.secondary,
-                  color: theme.text,
-                  padding: 10,
-                  borderRadius: 8,
-                  marginBottom: 15,
-                  borderColor: theme.primary,
-                  borderWidth: 1,
-                }}
-              />
-
-              <TouchableOpacity
-                onPress={handleUpdateName}
-                style={{
-                  backgroundColor: theme.primary,
-                  padding: 12,
-                  borderRadius: 8,
-                  alignItems: "center",
-                }}
-                disabled={isUpdatingName}
-              >
-                {isUpdatingName ? (
-                  <ActivityIndicator color="#fff" />
-                ) : (
-                  <Text style={{ color: "#fff", fontWeight: "bold" }}>
-                    {t("save") || "Save"}
-                  </Text>
-                )}
-              </TouchableOpacity>
-            </View>
+            )}
           </TouchableOpacity>
-        </Modal>
+        </View>
+      </TouchableOpacity>
+    </Modal>
+
 
       </View>
 

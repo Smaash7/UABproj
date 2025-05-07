@@ -82,11 +82,14 @@
   "errors": {
     "fetchBarbers": "Failed to load barbers.",
     "failedDeleteBarber": "Failed to delete barber",
-    "error": "Error"
+    "error": "Error",
+    "invalidName": "Name cannot be empty.",
+    "usernameExists": "Username already exists."
   },
   "success": {
     "deleteBarberTitle": "Success",
-    "deleteBarberMessage": "Barber deleted successfully"
+    "deleteBarberMessage": "Barber deleted successfully",
+    "nameUpdated": "Name updated successfully!"
   },
   "confirmDelete": {
     "title": "Confirm Delete",
@@ -99,8 +102,9 @@
     "dark": "🌚 Dark Theme"
   },
   "selectTheme": "Select Theme",
-  "emptyListMessage": "No barbers found.",
-  "addFirstBarber": "Add your first Barber",
+  "editYourName": "Edit your name",
+  "enterNewName": "Enter new name",
+  "save": "Save",
   "selectLanguage": "Select language",
   "language": {
     "en": "English",
@@ -108,6 +112,9 @@
     "sl": "Slovene",
     "de": "German",
     "fr": "French"
+  },
+  "headerprofile": {
+    "joined": "Joined"
   }
   
 }
