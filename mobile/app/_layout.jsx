@@ -6,6 +6,7 @@ import { StatusBar } from "expo-status-bar";
 import { useAuthStore } from "../store/authStore";
 import { useEffect } from "react";
 import { ThemeProvider } from "../context/ThemeContext";
+import Toast from "react-native-toast-message";
 
 
 export default function RootLayout() {
@@ -37,6 +38,7 @@ export default function RootLayout() {
           </Stack>
         </SafeScreen>
         <StatusBar style="dark" />
+        <Toast />
       </SafeAreaProvider>
     </ThemeProvider>
   );
