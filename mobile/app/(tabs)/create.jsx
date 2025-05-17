@@ -1,3 +1,5 @@
+// screens/Create.jsx
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -9,17 +11,19 @@ import {
   Alert,
   Image,
   ActivityIndicator,
+  UIManager,
+  findNodeHandle,
 } from "react-native";
-import React, { useState } from "react";
 import { useRouter } from "expo-router";
 import styles from "../../assets/styles/create.styles";
 import { Ionicons } from "@expo/vector-icons";
 import COLORS from "../../constants/colors";
+import SPACING from "../../constants/spacing";
+import metrics from "../../constants/metrics";
 import { useAuthStore } from "../../store/authStore";
 import { API_URL } from "../../constants/api";
 import { useTheme } from "../../context/ThemeContext";
-import { useTranslation } from "react-i18next"; 
-
+import { useTranslation } from "react-i18next";
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
 
@@ -41,7 +45,7 @@ export default function Create() {
       if (Platform.OS === "android") {
         const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (status !== "granted") {
-          Alert.alert(t("create.permission_alert")); 
+          Alert.alert(t("create.alertPermission"));
           return;
         }
       }
@@ -59,21 +63,21 @@ export default function Create() {
         if (result.assets[0].base64) {
           setImageBase64(result.assets[0].base64);
         } else {
-          const base64 = await convertToBase64(result.assets[0].uri, {
-            endcoding: FileSystem.EndcodingType.Base64,
+          const base64 = await FileSystem.readAsStringAsync(result.assets[0].uri, {
+            encoding: FileSystem.EncodingType.Base64,
           });
           setImageBase64(base64);
         }
       }
     } catch (error) {
       console.error("Error picking image", error);
-      Alert.alert(t("create.image_error"), error.message);
+      Alert.alert(t("create.alertErrorPickImage"), error.message);
     }
   };
 
   const handleSubmit = async () => {
     if (!title || !caption || !imageBase64 || !rating) {
-      Alert.alert(t("create.fill_fields")); 
+      Alert.alert(t("create.alertMissingFields"));
       return;
     }
 
@@ -102,7 +106,7 @@ export default function Create() {
       const data = await response.json();
       if (!response.ok) throw new Error(data.message || t("create.generic_error"));
 
-      Alert.alert(t("create.success_title"), t("create.success_message")); 
+      Alert.alert(t("create.alertSuccessTitle"), t("create.alertSuccessMessage"));
       setTitle("");
       setCaption("");
       setRating(3);
@@ -111,7 +115,7 @@ export default function Create() {
       router.push("/");
     } catch (error) {
       console.error("Error creating barber", error);
-      Alert.alert(t("create.error_title"), error.message || t("create.generic_error"));
+      Alert.alert(t("create.alertErrorTitle"), error.message || t("create.alertErrorGeneric"));
     } finally {
       setLoading(false);
     }
@@ -128,8 +132,8 @@ export default function Create() {
         >
           <Ionicons
             name={i <= rating ? "star" : "star-outline"}
-            size={32}
-            color={i <= rating ? "#f4b400" : COLORS.textSecondary}
+            size={SPACING.createStarIconSize}
+            color={i <= rating ? COLORS.warning : COLORS.textSecondary}
           />
         </TouchableOpacity>
       );
@@ -147,15 +151,15 @@ export default function Create() {
           styles.container,
           { backgroundColor: theme.background },
         ]}
-        style={{ backgroundColor: theme.background }}
+        style={styles.scrollViewStyle}
       >
         <View
           style={[
             styles.card,
             {
               backgroundColor: theme.card,
-              borderWidth: theme.name === "dark" ? 1 : 0,
-              borderColor: theme.name === "dark" ? "#FF3CAC" : "transparent",
+              borderWidth: theme.name === "dark" ? metrics.borderWidth.thin : 0,
+              borderColor: theme.name === "dark" ? COLORS.accent : "transparent",
               shadowColor: theme.name === "dark" ? "#000" : "transparent",
               shadowOpacity: theme.name === "dark" ? 0.15 : 0,
               elevation: theme.name === "dark" ? 5 : 0,
@@ -169,11 +173,11 @@ export default function Create() {
 
           <View style={styles.form}>
             <View style={styles.formGroup}>
-              <Text style={[styles.label, { color: theme.text }]}>{t("create.label_name")}</Text>
+              <Text style={[styles.label, { color: theme.text }]}>{t("create.barberName")}</Text>
               <View style={[styles.inputContainer, { backgroundColor: theme.input }]}>
                 <Ionicons
                   name="storefront-outline"
-                  size={20}
+                  size={SPACING.createInputIconSize}
                   color={COLORS.placeholderText}
                   style={styles.inputIcon}
                 />
@@ -188,20 +192,20 @@ export default function Create() {
             </View>
 
             <View style={styles.formGroup}>
-              <Text style={[styles.label, { color: theme.text }]}>{t("create.label_rating")}</Text>
+              <Text style={[styles.label, { color: theme.text }]}>{t("create.rating")}</Text>
               {renderRatingPicker()}
             </View>
 
             <View style={styles.formGroup}>
-              <Text style={[styles.label, { color: theme.text }]}>{t("create.label_image")}</Text>
+              <Text style={[styles.label, { color: theme.text }]}>{t("create.image")}</Text>
               <TouchableOpacity style={styles.imagePicker} onPress={pickImage}>
                 {image ? (
                   <Image source={{ uri: image }} style={styles.previewImage} />
                 ) : (
                   <View style={styles.placeholderContainer}>
-                    <Ionicons name="image-outline" size={40} color={COLORS.textSecondary} />
+                    <Ionicons name="image-outline" size={SPACING.createPlaceholderIconSize} color={COLORS.textSecondary} />
                     <Text style={[styles.placeholderText, { color: theme.text }]}>
-                      {t("create.image_placeholder")}
+                      {t("create.selectImage")}
                     </Text>
                   </View>
                 )}
@@ -209,11 +213,11 @@ export default function Create() {
             </View>
 
             <View style={styles.formGroup}>
-              <Text style={[styles.label, { color: theme.text }]}>{t("create.label_caption")}</Text>
+              <Text style={[styles.label, { color: theme.text }]}>{t("create.caption")}</Text>
               <View style={[styles.inputContainer, { backgroundColor: theme.input }]}>
                 <TextInput
                   style={[styles.input, { color: theme.text }]}
-                  placeholder={t("create.placeholder_caption")}
+                  placeholder={t("create.captionPlaceholder")}
                   placeholderTextColor={COLORS.placeholderText}
                   value={caption}
                   onChangeText={setCaption}
@@ -233,11 +237,11 @@ export default function Create() {
                 <>
                   <Ionicons
                     name="cloud-upload-outline"
-                    size={20}
+                    size={SPACING.createButtonIconSize}
                     color={COLORS.white}
                     style={styles.buttonIcon}
                   />
-                  <Text style={styles.buttonText}>{t("create.submit_button")}</Text>
+                  <Text style={styles.buttonText}>{t("create.submit")}</Text>
                 </>
               )}
             </TouchableOpacity>

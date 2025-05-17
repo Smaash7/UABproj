@@ -13,6 +13,7 @@ import { API_URL } from "../../constants/api";
 import { Image } from "expo-image";
 import COLORS from "../../constants/colors";
 import styles from "../../assets/styles/home.styles";
+import SPACING from "../../constants/spacing";
 import { Ionicons } from "@expo/vector-icons";
 import { formatPublishDate } from "../../lib/utils";
 import Loader from "../../components/Loader";
@@ -116,9 +117,9 @@ export default function Home() {
         <Ionicons
           key={i}
           name={i < rating ? "star" : "star-outline"}
-          size={20}
-          color={i < rating ? "#f4b400" : COLORS.textSecondary}
-          style={{ marginRight: 2 }}
+          size={SPACING.md + 4}
+          color={i < rating ? COLORS.warning : COLORS.textSecondary}
+          style={{ marginRight: SPACING.starMarginRight }}
         />
       );
     }
@@ -147,24 +148,14 @@ export default function Home() {
         onEndReachedThreshold={0.1}
         ListHeaderComponent={
           <View style={styles.header}>
-            <Ionicons name="cut-outline" size={24} color="#FF007F" />
-            <Text
-              style={[
-                styles.headerTitle,
-                { color: "#880E4F", marginLeft: 8 }, 
-              ]}
-            >
+            <Ionicons name="cut-outline" size={24} color={COLORS.accent} />
+            <Text style={[styles.headerTitle, { color: COLORS.accentDark }, styles.headerIconSpacing]}>
               {t('home.headerTitle')} 
             </Text>
-            <Text
-              style={[
-                styles.headerSubtitle,
-                { color: "#880E4F" }, 
-              ]}
-            >
+            <Text style={[styles.headerSubtitle, { color: COLORS.accentDark }]}>
               {t('home.headerSubtitle')}
             </Text>
-            <View style={{ height: 10 }} />
+            <View style={styles.spacerSmall} />
             <View style={styles.divider} />
           </View>
         }

@@ -1,12 +1,15 @@
-// styles/create.styles.js
+// assets/styles/create.styles.js
 import { StyleSheet } from "react-native";
 import COLORS from "../../constants/colors";
+import SPACING from "../../constants/spacing";
+import typography from "../../constants/typography";
+import metrics from "../../constants/metrics";
 
-const styles = StyleSheet.create({
+export default StyleSheet.create({
   container: {
     flexGrow: 1,
     backgroundColor: COLORS.background,
-    padding: 16,
+    padding: SPACING.createContainerPadding,          
   },
   scrollViewStyle: {
     flex: 1,
@@ -14,41 +17,37 @@ const styles = StyleSheet.create({
   },
   card: {
     backgroundColor: COLORS.cardBackground,
-    borderRadius: 16,
-    padding: 20,
-    marginVertical: 16,
-    shadowColor: COLORS.black,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 3,
-    borderWidth: 1,
+    borderRadius: metrics.radius.md,                  
+    padding: SPACING.createCardPadding,               
+    marginVertical: SPACING.createCardMarginVertical, 
+    ...metrics.shadow.card,
+    borderWidth: metrics.borderWidth.thin,            
     borderColor: COLORS.border,
   },
   header: {
     alignItems: "center",
-    marginBottom: 24,
+    marginBottom: SPACING.createHeaderMarginBottom,   
   },
   title: {
-    fontSize: 24,
+    fontSize: typography.sizes.lg,                    
     fontWeight: "700",
     color: COLORS.textPrimary,
-    marginBottom: 8,
+    marginBottom: SPACING.createTitleMarginBottom,   
   },
   subtitle: {
-    fontSize: 14,
+    fontSize: typography.sizes.base,                  
     color: COLORS.textSecondary,
     textAlign: "center",
   },
   form: {
-    marginBottom: 16,
+    marginBottom: SPACING.createFormMarginBottom,    
   },
   formGroup: {
-    marginBottom: 20,
+    marginBottom: SPACING.createFormGroupMarginBottom, 
   },
   label: {
-    fontSize: 14,
-    marginBottom: 8,
+    fontSize: typography.sizes.base,                  
+    marginBottom: SPACING.createLabelMarginBottom,   
     color: COLORS.textPrimary,
     fontWeight: "500",
   },
@@ -56,47 +55,49 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: COLORS.inputBackground,
-    borderRadius: 12,
-    borderWidth: 1,
+    borderRadius: metrics.radius.sm,                  
+    borderWidth: metrics.borderWidth.thin,            
     borderColor: COLORS.border,
-    paddingHorizontal: 12,
+    paddingHorizontal: SPACING.createInputPaddingHorizontal, 
   },
   inputIcon: {
-    marginRight: 10,
+    marginRight: SPACING.createInputIconMarginRight, 
   },
   input: {
     flex: 1,
-    height: 48,
+    height: SPACING.createInputHeight,                
     color: COLORS.textDark,
+    fontSize: typography.sizes.base,
   },
   textArea: {
     backgroundColor: COLORS.inputBackground,
-    borderRadius: 12,
-    borderWidth: 1,
+    borderRadius: metrics.radius.sm,                  
+    borderWidth: metrics.borderWidth.thin,            
     borderColor: COLORS.border,
-    padding: 12,
-    height: 100,
+    padding: SPACING.createTextAreaPadding,           
+    height: SPACING.createTextAreaHeight,             
     color: COLORS.textDark,
+    fontSize: typography.sizes.base,
   },
   ratingContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
     backgroundColor: COLORS.inputBackground,
-    borderRadius: 12,
-    borderWidth: 1,
+    borderRadius: metrics.radius.sm,
+    borderWidth: metrics.borderWidth.thin,
     borderColor: COLORS.border,
-    padding: 8,
+    padding: SPACING.createRatingPadding,             
   },
   starButton: {
-    padding: 8,
+    padding: SPACING.createStarButtonPadding,       
   },
   imagePicker: {
     width: "100%",
-    height: 200,
+    height: SPACING.createImagePickerHeight,          
     backgroundColor: COLORS.inputBackground,
-    borderRadius: 12,
-    borderWidth: 1,
+    borderRadius: metrics.radius.sm,
+    borderWidth: metrics.borderWidth.thin,
     borderColor: COLORS.border,
     overflow: "hidden",
   },
@@ -112,30 +113,25 @@ const styles = StyleSheet.create({
   },
   placeholderText: {
     color: COLORS.textSecondary,
-    marginTop: 8,
+    marginTop: SPACING.createPlaceholderTextMarginTop,
+    fontSize: typography.sizes.base,
   },
   button: {
     backgroundColor: COLORS.primary,
-    borderRadius: 12,
-    height: 50,
+    borderRadius: metrics.radius.sm,
+    height: SPACING.createButtonHeight,               
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 16,
-    shadowColor: COLORS.black,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
+    marginTop: SPACING.createButtonMarginTop,         
+    ...metrics.shadow.card,
   },
   buttonText: {
     color: COLORS.white,
-    fontSize: 16,
+    fontSize: typography.sizes.base,
     fontWeight: "600",
   },
   buttonIcon: {
-    marginRight: 8,
+    marginRight: SPACING.createButtonIconMarginRight, 
   },
 });
-
-export default styles;

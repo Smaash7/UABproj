@@ -1,3 +1,4 @@
+// screens/About.jsx
 import React, { useRef } from "react";
 import {
   View,
@@ -12,8 +13,9 @@ import {
 } from "react-native";
 import { useTheme } from "../../context/ThemeContext";
 import COLORS from "../../constants/colors";
-import { Ionicons } from "@expo/vector-icons";
-import { useTranslation } from "react-i18next"; 
+import SPACING from "../../constants/spacing";
+import { useTranslation } from "react-i18next";
+import styles from "../../assets/styles/about.styles";
 
 const { width } = Dimensions.get("window");
 
@@ -26,7 +28,7 @@ export default function About() {
   const missionRef = useRef(null);
   const contactRef = useRef(null);
 
-  const { t } = useTranslation(); // Hook de tradução
+  const { t } = useTranslation();
 
   const scrollToSection = (ref) => {
     const scrollNode = findNodeHandle(scrollRef.current);
@@ -37,7 +39,7 @@ export default function About() {
         scrollNode,
         (err) => console.error(err),
         (x, y) => {
-          scrollRef.current.scrollTo({ y: y - 50, animated: true });
+          scrollRef.current.scrollTo({ y: y - SPACING.aboutScrollOffset, animated: true });
         }
       );
     }
@@ -58,22 +60,30 @@ export default function About() {
       <View
         style={[
           styles.headerTextContainer,
-          { backgroundColor: isDark ? "#2c003e" : COLORS.primary },
+          {
+            backgroundColor: isDark
+              ? COLORS.headerDarkBg
+              : COLORS.headerLightBg,
+          },
         ]}
       >
         <Text
-          style={[styles.headerTitle, { color: isDark ? "#FF69B4" : "white" }]}
+          style={[
+            styles.headerTitle,
+            { color: isDark ? COLORS.accentLight : COLORS.navText },
+          ]}
         >
           💈 VELLA 💈
         </Text>
         <Text
           style={[
             styles.headerSubtitle,
-            { color: isDark ? "#FFB6C1" : "white" },
+            { color: isDark ? COLORS.accentLight : COLORS.navText },
           ]}
         >
           {t("about.slogan")}
         </Text>
+
         <View style={styles.navRow}>
           <TouchableOpacity
             style={styles.navButton}
@@ -146,90 +156,12 @@ export default function About() {
         </Text>
       </View>
 
-      <TouchableOpacity onPress={scrollToTop} style={styles.backToTopButton}>
+      <TouchableOpacity
+        onPress={scrollToTop}
+        style={styles.backToTopButton}
+      >
         <Text style={styles.backToTopText}>{t("about.back_to_top")}</Text>
       </TouchableOpacity>
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    paddingBottom: 40,
-  },
-  headerTextContainer: {
-    paddingTop: 50,
-    paddingBottom: 20,
-    paddingHorizontal: 24,
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
-  },
-  headerTitle: {
-    fontSize: 38,
-    fontWeight: "800",
-    letterSpacing: 2,
-    textAlign: "center",
-  },
-  headerSubtitle: {
-    fontSize: 18,
-    fontWeight: "400",
-    marginTop: 8,
-    textAlign: "center",
-    opacity: 0.95,
-  },
-  navRow: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    marginTop: 20,
-    flexWrap: "wrap",
-  },
-  navButton: {
-    backgroundColor: "#FF69B4",
-    paddingVertical: 8,
-    paddingHorizontal: 14,
-    borderRadius: 16,
-    marginVertical: 4,
-  },
-  navText: {
-    color: "white",
-    fontWeight: "700",
-    fontSize: 14,
-  },
-  illustrationWrapper: {
-    alignItems: "center",
-    marginTop: 24,
-  },
-  illustration: {
-    width: width * 0.9,
-    height: 220,
-    borderRadius: 20,
-  },
-  section: {
-    paddingHorizontal: 24,
-    marginTop: 40,
-  },
-  sectionTitle: {
-    fontSize: 22,
-    fontWeight: "700",
-    marginBottom: 16,
-  },
-  text: {
-    fontSize: 16,
-    lineHeight: 24,
-    marginBottom: 10,
-  },
-  backToTopButton: {
-    alignSelf: "center",
-    marginTop: 30,
-    marginBottom: 40,
-    backgroundColor: "#FF69B4",
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 20,
-  },
-  backToTopText: {
-    color: "white",
-    fontSize: 14,
-    fontWeight: "600",
-  },
-});
