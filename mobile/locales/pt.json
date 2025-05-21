@@ -63,7 +63,9 @@
     "alertErrorTitle": "Erro",
     "alertErrorGeneric": "Algo correu mal",
     "alertErrorPickImage": "Erro ao escolher imagem",
-    "alertPermission": "A permissão para aceder à galeria é necessária para esta funcionalidade"
+    "alertPermission": "A permissão para aceder à galeria é necessária para esta funcionalidade",
+    "city": "Cidade",
+    "placeholder_city": "Lisboa, Porto, etc."
   },
   "home": {
     "yourCity": "Na tua cidade",

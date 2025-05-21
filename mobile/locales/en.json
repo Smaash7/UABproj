@@ -63,7 +63,9 @@
     "alertSuccessMessage": "Your barber has been created",
     "alertErrorTitle": "Error creating barber",
     "alertErrorGeneric": "Something went wrong",
-    "alertErrorPickImage": "Error picking image"
+    "alertErrorPickImage": "Error picking image",
+    "city": "City",
+    "placeholder_city": "London, Manchester, etc."
   },
 "home": {
   "yourCity": "In your city",

@@ -63,7 +63,9 @@
       "alertSuccessMessage": "Ihr Friseur wurde erstellt",
       "alertErrorTitle": "Fehler bei der Erstellung des Friseurs",
       "alertErrorGeneric": "Es ist etwas schief gelaufen",
-      "alertErrorPickImage": "Fehler beim Auswählen des Bildes"
+      "alertErrorPickImage": "Fehler beim Auswählen des Bildes",
+      "city": "Stadt",
+      "placeholder_city": "Berlin, München, usw."
     },
 "home": {
   "yourCity": "In deiner Stadt",

@@ -63,7 +63,9 @@
       "alertSuccessMessage": "Votre coiffeur a été créé",
       "alertErrorTitle": "Erreur lors de la création du coiffeur",
       "alertErrorGeneric": "Quelque chose s'est mal passé",
-      "alertErrorPickImage": "Erreur lors de la sélection de l'image"
+      "alertErrorPickImage": "Erreur lors de la sélection de l'image",
+      "city": "Ville",
+      "placeholder_city": "Paris, Lyon, etc."
     },
 "home": {
   "yourCity": "Dans votre ville",

@@ -63,7 +63,9 @@
     "alertSuccessMessage": "Vaš frizer je bil ustvarjen",
     "alertErrorTitle": "Napaka pri ustvarjanju frizerja",
     "alertErrorGeneric": "Nekaj je šlo narobe",
-    "alertErrorPickImage": "Napaka pri izbiri slike"
+    "alertErrorPickImage": "Napaka pri izbiri slike",
+    "city": "Mesto",
+    "placeholder_city": "Ljubljana, Maribor, itd."
   },
 "home": {
   "yourCity": "V vašem mestu",

@@ -195,7 +195,7 @@ export default function Create() {
             </View>
 
             <View style={styles.formGroup}>
-              <Text style={[styles.label, { color: theme.text }]}>Cidade</Text>
+              <Text style={[styles.label, { color: theme.text }]}>{t("create.city")}</Text>
               <View style={[styles.inputContainer, { backgroundColor: theme.input }]}>
                 <Ionicons
                   name="location-outline"
@@ -205,7 +205,7 @@ export default function Create() {
                 />
                 <TextInput
                   style={[styles.input, { color: theme.text }]}
-                  placeholder="Lisboa, Porto, etc."
+                  placeholder={t("create.placeholder_city")}
                   placeholderTextColor={COLORS.placeholderText}
                   value={city}
                   onChangeText={setCity}
