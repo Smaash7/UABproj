@@ -65,14 +65,17 @@
     "alertErrorGeneric": "Nekaj je šlo narobe",
     "alertErrorPickImage": "Napaka pri izbiri slike"
   },
-  "home": {
-    "headerTitle": "Priporočila Bella ✨",
-    "headerSubtitle": "Odkrijte in delite najbolj cenjene frizerje, ki jim zaupajo v skupnosti 💈",
-    "sharedOn": "Deljeno dne",
-    "noRecommendations": "Ni priporočil",
-    "noRecommendationsSubtext": "Bodite prvi, ki bo delil frizerja",
-    "errorFetching": "Napaka pri nalaganju frizerjev"
-  },
+"home": {
+  "yourCity": "V vašem mestu",
+  "recommendedBarber": "Priporočen frizer",
+  "headerTitle": "Priporočila Vella ✨",
+  "headerSubtitle": "Odkrijte in delite najbolj cenjene frizerje, ki jim zaupajo v skupnosti 💈",
+  "sharedOn": "Deljeno dne",
+  "noRecommendationInCity": "V tem mestu še ni priporočil.",
+  "noRecommendations": "Ni priporočil",
+  "noRecommendationsSubtext": "Bodite prvi, ki bo delil frizerja",
+  "errorFetching": "Napaka pri nalaganju frizerjev"
+},
   "tabs": {
     "home": "Domov",
     "create": "Ustvari",

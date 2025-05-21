@@ -65,14 +65,17 @@
     "alertErrorGeneric": "Something went wrong",
     "alertErrorPickImage": "Error picking image"
   },
-  "home": {
-    "headerTitle": "Bella Recommendations ✨",
-    "headerSubtitle": "Discover and share top-rated barbers trusted by the community 💈",
-    "sharedOn": "Shared on",
-    "noRecommendations": "No Recommendations",
-    "noRecommendationsSubtext": "Be the first to share a barber",
-    "errorFetching": "Failed to fetch barbers"
-  },
+"home": {
+  "yourCity": "In your city",
+  "recommendedBarber": "Recommended barber",
+  "headerTitle": "Vella Recommendations ✨",
+  "headerSubtitle": "Discover and share top-rated barbers trusted by the community 💈",
+  "sharedOn": "Shared on",
+  "noRecommendationInCity": "No recommendations yet in this city.",
+  "noRecommendations": "No Recommendations",
+  "noRecommendationsSubtext": "Be the first to share a barber",
+  "errorFetching": "Failed to fetch barbers"
+},
     "tabs": {
       "home": "Home",
       "create": "Create",

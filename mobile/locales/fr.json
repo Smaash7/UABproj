@@ -65,14 +65,17 @@
       "alertErrorGeneric": "Quelque chose s'est mal passé",
       "alertErrorPickImage": "Erreur lors de la sélection de l'image"
     },
-    "home": {
-      "headerTitle": "Recommandations Bella ✨",
-      "headerSubtitle": "Découvrez et partagez les meilleurs coiffeurs approuvés par la communauté 💈",
-      "sharedOn": "Partagé le",
-      "noRecommendations": "Pas de recommandations",
-      "noRecommendationsSubtext": "Soyez le premier à partager un coiffeur",
-      "errorFetching": "Échec du chargement des coiffeurs"
-    },
+"home": {
+  "yourCity": "Dans votre ville",
+  "recommendedBarber": "Coiffeur recommandé",
+  "headerTitle": "Recommandations Vella ✨",
+  "headerSubtitle": "Découvrez et partagez les meilleurs coiffeurs approuvés par la communauté 💈",
+  "sharedOn": "Partagé le",
+  "noRecommendationInCity": "Aucune recommandation pour cette ville pour l’instant.",
+  "noRecommendations": "Pas de recommandations",
+  "noRecommendationsSubtext": "Soyez le premier à partager un coiffeur",
+  "errorFetching": "Échec du chargement des coiffeurs"
+},
     "tabs": {
       "home": "Accueil",
       "create": "Créer",

@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     ...metrics.shadow.card,
   },
   headerTitle: {
-    fontSize: typography.sizes.xl,
+    fontSize: typography.sizes.lg,
     fontFamily: typography.fonts.medium,
     letterSpacing: typography.letterSpacings.normal,
     color: "#FF007F",
@@ -59,8 +59,8 @@ const styles = StyleSheet.create({
   barberCard: {
     backgroundColor: COLORS.cardBackground,
     borderRadius: metrics.radius.md,
-    marginBottom: SPACING.lg,
-    padding: SPACING.md,
+    marginBottom: SPACING.md,
+    padding: SPACING.sm,
     ...metrics.shadow.card,
     borderWidth: metrics.borderWidth.normal,
     borderColor: COLORS.accent,
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   },
   barberImageContainer: {
     width: "100%",
-    height: 200,
+    //height: 200,
     borderRadius: metrics.radius.md,
     overflow: "hidden",
     marginBottom: 12,
@@ -100,8 +100,11 @@ const styles = StyleSheet.create({
   },
   barberImage: {
     width: "100%",
-    height: "100%",
+    height: 180, // menor que os 200 do container
+    resizeMode: "cover", // garante que preenche bem sem distorcer
+    borderRadius: metrics.radius.sm,
   },
+  
   barberDetails: {
     padding: SPACING.smallPadding,
   },
@@ -147,6 +150,19 @@ const styles = StyleSheet.create({
   footerLoader: {
     marginVertical: SPACING.footerVertical,
   },
+  recommendationContainer: {
+    padding: SPACING.sm,
+    backgroundColor: COLORS.cardBackground,
+    borderRadius: metrics.radius.md,
+    borderWidth: metrics.borderWidth.normal,
+    borderColor: COLORS.accent,
+    marginBottom: SPACING.md,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+  },  
 });
 
 export default styles;

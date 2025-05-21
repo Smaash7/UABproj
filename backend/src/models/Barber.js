@@ -25,6 +25,10 @@ const barberSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    city: {
+      type: String,
+      required: true,
+    },    
   },
   { timestamps: true }
 );

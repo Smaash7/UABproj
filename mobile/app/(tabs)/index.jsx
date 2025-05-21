@@ -20,6 +20,9 @@ import Loader from "../../components/Loader";
 import { useTheme } from "../../context/ThemeContext";
 import { useTranslation } from 'react-i18next'; 
 
+import * as Location from 'expo-location';
+
+
 export default function Home() {
   const { t } = useTranslation(); 
   const { token } = useAuthStore();
@@ -29,6 +32,10 @@ export default function Home() {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
+  const [cidadeAtual, setCidadeAtual] = useState(null);
+  const [barbeariaRecomendada, setBarbeariaRecomendada] = useState(null);
+
+
   const theme = useTheme();
 
   const fetchBarbers = async (pageNum = 1, refreshing = false) => {
@@ -36,6 +43,7 @@ export default function Home() {
       if (refreshing) setRefreshing(true);
       else if (pageNum === 1) setLoading(true);
 
+      console.log("🔐 Token atual:", token);
       const response = await fetch(
         `${API_URL}/barbers?page=${pageNum}&limit=2`,
         {
@@ -44,8 +52,11 @@ export default function Home() {
       );
 
       const data = await response.json();
-      if (!response.ok)
-        throw new Error(data.message || t('home.errorFetching')); 
+      console.log("📦 Dados recebidos da API /barbers:", data);
+      if (!response.ok) {
+        console.error("❌ Erro ao buscar barbers:", response.status, data);
+        throw new Error(data.message || t('home.errorFetching'));
+      }
 
       const uniqueBarbers =
         refreshing || pageNum === 1
@@ -68,8 +79,63 @@ export default function Home() {
   };
 
   useEffect(() => {
-    fetchBarbers();
-  }, []);
+    fetchBarbers(); // 👈 esta linha estava em falta!
+  
+    const fetchRecommendation = async () => {
+      try {
+        console.log("🚀 A pedir permissão de localização...");
+        const { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+          console.warn("⛔ Permissão de localização negada");
+          return;
+        }
+  
+        const location = await Location.getCurrentPositionAsync({});
+        const { latitude, longitude } = location.coords;
+        console.log("📍 Localização obtida:", latitude, longitude);
+  
+        const reverseUrl = `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`;
+        console.log("🔄 URL de geolocalização:", reverseUrl);
+  
+        const res = await fetch(reverseUrl, {
+          headers: {
+            'User-Agent': 'barber-review-app'
+          }
+        });
+  
+        const rawGeo = await res.text();
+        console.log("🗺️ Resposta bruta da geolocalização:", rawGeo);
+  
+        const data = JSON.parse(rawGeo);
+        const city = data.address.city || data.address.town || data.address.village;
+        console.log("🏙️ Cidade detetada:", city);
+        setCidadeAtual(city);
+  
+        const encodedCity = encodeURIComponent(city);
+        const apiUrl = `${API_URL}/barbers/top/${encodedCity}`;
+        console.log("🌐 URL da API backend:", apiUrl);
+  
+        const backendRes = await fetch(apiUrl);
+        const backendRaw = await backendRes.text();
+        console.log("📄 Conteúdo da API backend:", backendRaw);
+  
+        const json = JSON.parse(backendRaw);
+  
+        if (!json.message) {
+          setBarbeariaRecomendada(json);
+        } else {
+          setBarbeariaRecomendada(null);
+        }
+  
+      } catch (err) {
+        console.error("❌ Erro geral:", err.message || err);
+        setBarbeariaRecomendada(null);
+      }
+    };
+  
+    fetchRecommendation();
+  }, []);  
+  
 
   const handleLoadMore = async () => {
     if (hasMore && !loading && !refreshing) {
@@ -147,18 +213,54 @@ export default function Home() {
         onEndReached={handleLoadMore}
         onEndReachedThreshold={0.1}
         ListHeaderComponent={
-          <View style={styles.header}>
-            <Ionicons name="cut-outline" size={24} color={COLORS.accent} />
-            <Text style={[styles.headerTitle, { color: COLORS.accentDark }, styles.headerIconSpacing]}>
-              {t('home.headerTitle')} 
-            </Text>
-            <Text style={[styles.headerSubtitle, { color: COLORS.accentDark }]}>
-              {t('home.headerSubtitle')}
-            </Text>
-            <View style={styles.spacerSmall} />
-            <View style={styles.divider} />
+          <View>
+            {cidadeAtual && (
+              <View style={styles.recommendationContainer}>
+                <Text style={styles.headerTitle}>📍 {t('home.yourCity')} {cidadeAtual}</Text>
+        
+                {barbeariaRecomendada ? (
+                  <>
+                    <Text style={styles.headerSubtitle}>🔝 {t('home.recommendedBarber')}</Text>
+        
+                    <View style={styles.barberCard}>
+                      <Image
+                        source={{ uri: barbeariaRecomendada.image }}
+                        style={styles.barberImage}
+                        contentFit="cover"
+                      />
+                      <View style={styles.barberDetails}>
+                        <Text style={styles.barberTitle}>{barbeariaRecomendada.title}</Text>
+                        <Text style={styles.caption}>{barbeariaRecomendada.caption}</Text>
+                        <View style={styles.ratingContainer}>
+                          {renderRatingStars(barbeariaRecomendada.rating)}
+                        </View>
+                      </View>
+                    </View>
+                  </>
+                ) : (
+                  <Text style={[styles.caption, { marginTop: 8 }]}>
+                    🤷 {t('home.noRecommendationInCity')}
+                  </Text>
+                )}
+        
+                <View style={styles.divider} />
+              </View>
+            )}
+        
+            <View style={styles.header}>
+              <Ionicons name="cut-outline" size={24} color={COLORS.accent} />
+              <Text style={[styles.headerTitle, { color: COLORS.accentDark }, styles.headerIconSpacing]}>
+                {t('home.headerTitle')} 
+              </Text>
+              <Text style={[styles.headerSubtitle, { color: COLORS.accentDark }]}>
+                {t('home.headerSubtitle')}
+              </Text>
+              <View style={styles.spacerSmall} />
+              <View style={styles.divider} />
+            </View>
           </View>
         }
+             
         ListFooterComponent={
           hasMore && barbers.length > 0 ? (
             <ActivityIndicator

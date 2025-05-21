@@ -34,6 +34,8 @@ export default function Create() {
   const [image, setImage] = useState(null);
   const [imageBase64, setImageBase64] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [city, setCity] = useState("");
+
 
   const router = useRouter();
   const { token } = useAuthStore();
@@ -76,7 +78,7 @@ export default function Create() {
   };
 
   const handleSubmit = async () => {
-    if (!title || !caption || !imageBase64 || !rating) {
+    if (!title || !caption || !imageBase64 || !rating || !city) {
       Alert.alert(t("create.alertMissingFields"));
       return;
     }
@@ -100,6 +102,7 @@ export default function Create() {
           caption,
           image: imageDataUrl,
           rating: rating.toString(),
+          city,
         }),
       });
 
@@ -190,6 +193,26 @@ export default function Create() {
                 />
               </View>
             </View>
+
+            <View style={styles.formGroup}>
+              <Text style={[styles.label, { color: theme.text }]}>Cidade</Text>
+              <View style={[styles.inputContainer, { backgroundColor: theme.input }]}>
+                <Ionicons
+                  name="location-outline"
+                  size={SPACING.createInputIconSize}
+                  color={COLORS.placeholderText}
+                  style={styles.inputIcon}
+                />
+                <TextInput
+                  style={[styles.input, { color: theme.text }]}
+                  placeholder="Lisboa, Porto, etc."
+                  placeholderTextColor={COLORS.placeholderText}
+                  value={city}
+                  onChangeText={setCity}
+                />
+              </View>
+            </View>
+            
 
             <View style={styles.formGroup}>
               <Text style={[styles.label, { color: theme.text }]}>{t("create.rating")}</Text>

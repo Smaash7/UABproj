@@ -66,9 +66,12 @@
     "alertPermission": "A permissão para aceder à galeria é necessária para esta funcionalidade"
   },
   "home": {
-    "headerTitle": "Recomendações Bella ✨",
+    "yourCity": "Na tua cidade",
+    "recommendedBarber": "Barbearia recomendada",
+    "headerTitle": "Recomendações Vella ✨",
     "headerSubtitle": "Descubra e compartilhe barbeiros bem avaliados, confiáveis pela comunidade 💈",
     "sharedOn": "Compartilhado em",
+    "noRecommendationInCity": "Ainda não há recomendações nesta cidade.",
     "noRecommendations": "Sem recomendações",
     "noRecommendationsSubtext": "Seja o primeiro a compartilhar um barbeiro",
     "errorFetching": "Falha ao buscar barbeiros"

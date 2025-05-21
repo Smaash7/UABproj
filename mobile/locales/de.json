@@ -65,14 +65,17 @@
       "alertErrorGeneric": "Es ist etwas schief gelaufen",
       "alertErrorPickImage": "Fehler beim Auswählen des Bildes"
     },
-    "home": {
-      "headerTitle": "Bella Empfehlungen ✨",
-      "headerSubtitle": "Entdecken und teilen Sie die besten Friseure, denen die Community vertraut 💈",
-      "sharedOn": "Geteilt am",
-      "noRecommendations": "Keine Empfehlungen",
-      "noRecommendationsSubtext": "Seien Sie der Erste, der einen Friseur teilt",
-      "errorFetching": "Fehler beim Laden der Friseure"
-    },
+"home": {
+  "yourCity": "In deiner Stadt",
+  "recommendedBarber": "Empfohlener Friseur",
+  "headerTitle": "Vella Empfehlungen ✨",
+  "headerSubtitle": "Entdecken und teilen Sie die besten Friseure, denen die Community vertraut 💈",
+  "sharedOn": "Geteilt am",
+  "noRecommendationInCity": "Noch keine Empfehlungen in dieser Stadt.",
+  "noRecommendations": "Keine Empfehlungen",
+  "noRecommendationsSubtext": "Seien Sie der Erste, der einen Friseur teilt",
+  "errorFetching": "Fehler beim Laden der Friseure"
+},
     "tabs": {
       "home": "Home",
       "create": "Erstellen",

@@ -7,12 +7,12 @@ const router = express.Router();
 
 router.post("/", protectRoute, async (req, res) => {
   try {
-    const { title, caption, rating, image } = req.body;
-    if (!title || !caption || !rating || !image) {
+    const { title, caption, rating, image, city } = req.body;
+    if (!title || !caption || !rating || !image || !city) {
       return res.status(400).json({ message: "Please fill in all fields" });
     }
 
-    //upload image to cloudinary
+    // upload image to cloudinary
     const uploadResponse = await cloudinary.uploader.upload(image);
     const imageUrl = uploadResponse.secure_url;
 
@@ -23,6 +23,7 @@ router.post("/", protectRoute, async (req, res) => {
       rating,
       image: imageUrl,
       user: req.user._id,
+      city,
     });
 
     await newBarber.save();
@@ -79,11 +80,11 @@ router.delete("/:id", protectRoute, async (req, res) => {
     if (!barber) {
       return res.status(404).json({ message: "Barber not found" });
     }
-    // check if user is the creator of the book
+    // check if user is the creator of the barber
     if (barber.user.toString() !== req.user._id.toString())
       return res.status(401).json({ message: "You can't delete this barber" });
 
-    //delete image from cloudinary as well
+    // delete image from cloudinary as well
     if (barber.image && barber.image.includes("cloudinary")) {
       try {
         const publicId = barber.image.split("/").pop().split(".")[0];
@@ -98,6 +99,25 @@ router.delete("/:id", protectRoute, async (req, res) => {
   } catch (error) {
     console.log("Error deleting barber", error);
     res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+router.get("/top/:city", async (req, res) => {
+  try {
+    const { city } = req.params;
+
+    const top = await Barber.find({ city })
+      .sort({ rating: -1 })
+      .limit(1);
+
+    if (top.length === 0) {
+      return res.status(404).json({ message: "Nenhuma barbearia encontrada nessa cidade." });
+    }
+
+    res.json(top[0]);
+  } catch (error) {
+    console.error("Erro ao buscar barbearia top:", error);
+    res.status(500).json({ message: "Erro ao buscar barbearia top." });
   }
 });
 
