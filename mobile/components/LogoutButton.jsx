@@ -4,10 +4,12 @@ import { useRouter } from 'expo-router';
 import { useAuthStore } from '../store/authStore';
 import { Ionicons } from '@expo/vector-icons';
 import styles from '../assets/styles/profile.styles';
+import { useTranslation } from "react-i18next";
 
 export default function LogoutButton() {
   const { logout } = useAuthStore();
   const router = useRouter();
+  const { t } = useTranslation();
 
   const confirmLogout = () => {
     console.log("Botão de logout clicado"); // <= este deve aparecer sempre que clicas
@@ -32,7 +34,7 @@ export default function LogoutButton() {
   return (
     <TouchableOpacity style={styles.logoutButton} onPress={confirmLogout}>
       <Ionicons name="log-out-outline" size={20} color="white" />
-      <Text style={styles.logoutText}>Logout</Text>
+      <Text style={styles.logoutText}>{t("Logout")}</Text>
     </TouchableOpacity>
   );
 }

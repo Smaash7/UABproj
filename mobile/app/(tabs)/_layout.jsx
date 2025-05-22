@@ -1,13 +1,13 @@
-import { Tabs } from "expo-router";
-import { Ionicons } from "@expo/vector-icons";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useTheme } from "../../context/ThemeContext";
-import { useTranslation } from "react-i18next";  
+import { Tabs } from 'expo-router';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useTheme } from '../../context/ThemeContext';
+import { useTranslation } from 'react-i18next';
+import AnimatedTabIcon from '../../components/AnimatedTabIcon'; // agora em .js
 
 export default function TabLayout() {
   const insets = useSafeAreaInsets();
   const theme = useTheme();
-  const { t } = useTranslation();  
+  const { t } = useTranslation();
 
   return (
     <Tabs
@@ -15,11 +15,6 @@ export default function TabLayout() {
         headerShown: false,
         tabBarActiveTintColor: theme.primary,
         tabBarInactiveTintColor: theme.text,
-        headerTitleStyle: {
-          color: theme.text,
-          fontWeight: "600",
-        },
-        headerShadowVisible: false,
         tabBarStyle: {
           backgroundColor: theme.secondary,
           borderTopWidth: 1,
@@ -33,36 +28,56 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: t('tabs.home'),  
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home-outline" size={size} color={color} />
+          title: t('tabs.home'),
+          tabBarIcon: ({ color, size, focused }) => (
+            <AnimatedTabIcon
+              name="home-outline"
+              color={color}
+              size={size}
+              focused={focused}
+            />
           ),
         }}
       />
       <Tabs.Screen
         name="create"
         options={{
-          title: t('tabs.create'), 
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="add-circle-outline" size={size} color={color} />
+          title: t('tabs.create'),
+          tabBarIcon: ({ color, size, focused }) => (
+            <AnimatedTabIcon
+              name="add-circle-outline"
+              color={color}
+              size={size}
+              focused={focused}
+            />
           ),
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
-          title: t('tabs.profile'),  
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="person-outline" size={size} color={color} />
+          title: t('tabs.profile'),
+          tabBarIcon: ({ color, size, focused }) => (
+            <AnimatedTabIcon
+              name="person-outline"
+              color={color}
+              size={size}
+              focused={focused}
+            />
           ),
         }}
       />
       <Tabs.Screen
         name="about"
         options={{
-          title: t('tabs.about'),  
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="information-circle-outline" size={size} color={color} />
+          title: t('tabs.about'),
+          tabBarIcon: ({ color, size, focused }) => (
+            <AnimatedTabIcon
+              name="information-circle-outline"
+              color={color}
+              size={size}
+              focused={focused}
+            />
           ),
         }}
       />
