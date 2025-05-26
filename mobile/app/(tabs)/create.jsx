@@ -14,6 +14,7 @@ import {
   UIManager,
   findNodeHandle,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import styles from "../../assets/styles/create.styles";
 import { Ionicons } from "@expo/vector-icons";
@@ -145,6 +146,7 @@ export default function Create() {
   };
 
   return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.background }}>
     <KeyboardAvoidingView
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -272,5 +274,6 @@ export default function Create() {
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }

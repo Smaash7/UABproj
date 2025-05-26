@@ -9,6 +9,7 @@ import {
   Alert,
   Platform,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useState } from "react";
 import styles from "../../assets/styles/login.styles";
 import { Ionicons } from "@expo/vector-icons";
@@ -16,7 +17,7 @@ import COLORS from "../../constants/colors";
 import { useRouter } from "expo-router";
 import { useAuthStore } from "../../store/authStore";
 import { useTheme } from "../../context/ThemeContext";
-import { useTranslation } from "react-i18next";    // ← Importar hook
+import { useTranslation } from "react-i18next";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -37,6 +38,7 @@ export default function Login() {
   };
 
   return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: name === "dark" ? "#2a0b1d" : "#ffeef8" }}>
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={{ flex: 1 }}
@@ -137,7 +139,7 @@ export default function Login() {
                   { color: name === "dark" ? "#ffeef8" : COLORS.textPrimary },
                 ]}
               >
-                {t("login.password")}                       {/* ← tradução */}
+                {t("login.password")}       
               </Text>
               <View
                 style={[
@@ -215,5 +217,6 @@ export default function Login() {
         </View>
       </View>
     </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }

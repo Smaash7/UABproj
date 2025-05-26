@@ -8,6 +8,7 @@ import {
   RefreshControl,
   Modal,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "expo-router";
 import { API_URL } from "../../constants/api";
@@ -141,7 +142,9 @@ export default function Profile() {
   if (isLoading && !refreshing) return <Loader />;
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.background }]}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.background }}>
+      <View style={[styles.container]}>
+  
       <ProfileHeader onEditPress={() => setEditNameModalVisible(true)} />
       <LogoutButton />
 
@@ -232,5 +235,6 @@ export default function Profile() {
         ListEmptyComponent={<EmptyListComponent onPress={() => router.push("/create")} />}
       />
     </View>
+    </SafeAreaView>
   );
 }

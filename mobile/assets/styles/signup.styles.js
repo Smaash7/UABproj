@@ -57,8 +57,10 @@ const styles = StyleSheet.create({
   inputIcon: { marginRight: 10 },
   input: {
     flex: 1,
+    width: "100%",
     height: 48,
     color: COLORS.textDark,
+    fontSize: 16,
   },
   eyeIcon: { padding: 8 },
   button: {

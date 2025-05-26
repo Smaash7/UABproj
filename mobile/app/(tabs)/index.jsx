@@ -5,7 +5,9 @@ import {
   FlatList,
   ActivityIndicator,
   RefreshControl,
+  Dimensions,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useEffect, useState } from "react";
 import { useAuthStore } from "../../store/authStore";
 import { useRouter } from "expo-router";
@@ -34,6 +36,10 @@ export default function Home() {
 
   const [cidadeAtual, setCidadeAtual] = useState(null);
   const [barbeariaRecomendada, setBarbeariaRecomendada] = useState(null);
+
+  const screenWidth = Dimensions.get("window").width;
+  const numColumns = screenWidth >= 768 ? 3 : 2; // 3 colunas para tablets, 2 para smartphones
+
 
 
   const theme = useTheme();
@@ -79,7 +85,7 @@ export default function Home() {
   };
 
   useEffect(() => {
-    fetchBarbers(); // 👈 esta linha estava em falta!
+    fetchBarbers(); // esta linha estava em falta!
   
     const fetchRecommendation = async () => {
       try {
@@ -144,7 +150,16 @@ export default function Home() {
   };
 
   const renderItem = ({ item }) => (
-    <View style={styles.barberCard}>
+    <TouchableOpacity
+      style={{
+        flex: 1,
+        margin: SPACING.sm,
+        backgroundColor: COLORS.cardBackground,
+        borderRadius: 12,
+        padding: SPACING.sm,
+      }}
+      onPress={() => router.push(`/barber/${item._id}`)}
+    >
       <View style={styles.barberHeader}>
         <View style={styles.userInfo}>
           <Image
@@ -154,27 +169,33 @@ export default function Home() {
           <Text style={styles.username}>{item.user.username}</Text>
         </View>
       </View>
-
-      <View style={styles.barberImageContainer}>
-        <Image
-          source={{ uri: item.image }}
-          style={styles.barberImage}
-          contentFit="fill"
-        />
-      </View>
-
-      <View style={styles.barberDetails}>
-        <Text style={styles.barberTitle}>{item.title}</Text>
+  
+      <Image
+        source={{ uri: item.image }}
+        style={{
+          width: "100%",
+          height: screenWidth >= 768 ? 200 : 150,
+          borderRadius: 12,
+          resizeMode: "cover",
+          marginTop: 8,
+        }}
+      />
+  
+      <View style={{ marginTop: 12, flexShrink: 1 }}>
+        <Text style={{ fontSize: 16, fontWeight: "600", marginBottom: 4 }}>
+          {item.title}
+        </Text>
         <View style={styles.ratingContainer}>
           {renderRatingStars(item.rating)}
         </View>
-        <Text style={styles.caption}>{item.caption}</Text>
-        <Text style={styles.date}>
-          {t('home.sharedOn')} {formatPublishDate(item.createdAt)} 
+        <Text style={[styles.caption, { marginTop: 6 }]}>{item.caption}</Text>
+        <Text style={[styles.date, { marginTop: 6 }]}>
+          {t('home.sharedOn')} {formatPublishDate(item.createdAt)}
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
+  
 
   const renderRatingStars = (rating) => {
     const stars = [];
@@ -195,11 +216,13 @@ export default function Home() {
   if (loading) return <Loader />;
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.background }]}>
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
       <FlatList
         data={barbers}
         renderItem={renderItem}
-        keyExtractor={(item) => item._id}
+        keyExtractor={(item) => item._id.toString()}
+        numColumns={numColumns}
+        columnWrapperStyle={numColumns > 1 ? { justifyContent: "space-between" } : null}
         contentContainerStyle={styles.listContainer}
         showsVerticalScrollIndicator={false}
         refreshControl={
@@ -217,11 +240,11 @@ export default function Home() {
             {cidadeAtual && (
               <View style={styles.recommendationContainer}>
                 <Text style={styles.headerTitle}>📍 {t('home.yourCity')} {cidadeAtual}</Text>
-        
+  
                 {barbeariaRecomendada ? (
                   <>
                     <Text style={styles.headerSubtitle}>🔝 {t('home.recommendedBarber')}</Text>
-        
+  
                     <View style={styles.barberCard}>
                       <Image
                         source={{ uri: barbeariaRecomendada.image }}
@@ -242,11 +265,11 @@ export default function Home() {
                     🤷 {t('home.noRecommendationInCity')}
                   </Text>
                 )}
-        
+  
                 <View style={styles.divider} />
               </View>
             )}
-        
+  
             <View style={styles.header}>
               <Ionicons name="cut-outline" size={24} color={COLORS.accent} />
               <Text style={[styles.headerTitle, { color: COLORS.accentDark }, styles.headerIconSpacing]}>
@@ -260,7 +283,6 @@ export default function Home() {
             </View>
           </View>
         }
-             
         ListFooterComponent={
           hasMore && barbers.length > 0 ? (
             <ActivityIndicator
@@ -286,6 +308,7 @@ export default function Home() {
           </View>
         }
       />
-    </View>
+    </SafeAreaView>
   );
+  
 }

@@ -4,6 +4,10 @@ import COLORS from "../../constants/colors";
 import metrics from "../../constants/metrics";
 import SPACING from "../../constants/spacing";
 import typography from "../../constants/typography";
+import { Dimensions } from "react-native";
+
+const { width } = Dimensions.get("window");
+
 
 const styles = StyleSheet.create({
   container: {
@@ -101,11 +105,11 @@ const styles = StyleSheet.create({
     borderColor: COLORS.border,
   },
   barberImage: {
-    width: 70,
-    height: 100,
+    width: width * 0.2, // 20% da largura do ecrã
+    height: width * 0.3,
     borderRadius: metrics.radius.sm,
     marginRight: SPACING.sm,
-  },
+  },  
   barberInfo: {
     flex: 1,
     justifyContent: "space-between",
