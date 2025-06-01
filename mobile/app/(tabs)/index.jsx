@@ -49,7 +49,7 @@ export default function Home() {
       if (refreshing) setRefreshing(true);
       else if (pageNum === 1) setLoading(true);
 
-      console.log("🔐 Token atual:", token);
+      console.log("Token atual:", token);
       const response = await fetch(
         `${API_URL}/barbers?page=${pageNum}&limit=2`,
         {
@@ -58,9 +58,8 @@ export default function Home() {
       );
 
       const data = await response.json();
-      console.log("📦 Dados recebidos da API /barbers:", data);
       if (!response.ok) {
-        console.error("❌ Erro ao buscar barbers:", response.status, data);
+        console.error("Erro ao buscar barbers:", response.status, data);
         throw new Error(data.message || t('home.errorFetching'));
       }
 
@@ -85,23 +84,23 @@ export default function Home() {
   };
 
   useEffect(() => {
-    fetchBarbers(); // esta linha estava em falta!
+    fetchBarbers(); 
   
     const fetchRecommendation = async () => {
       try {
-        console.log("🚀 A pedir permissão de localização...");
+        console.log("A pedir permissão de localização...");
         const { status } = await Location.requestForegroundPermissionsAsync();
         if (status !== 'granted') {
-          console.warn("⛔ Permissão de localização negada");
+          console.warn("Permissão de localização negada");
           return;
         }
   
         const location = await Location.getCurrentPositionAsync({});
         const { latitude, longitude } = location.coords;
-        console.log("📍 Localização obtida:", latitude, longitude);
+        console.log("Localização obtida:", latitude, longitude);
   
         const reverseUrl = `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`;
-        console.log("🔄 URL de geolocalização:", reverseUrl);
+        console.log("URL de geolocalização:", reverseUrl);
   
         const res = await fetch(reverseUrl, {
           headers: {
@@ -110,20 +109,18 @@ export default function Home() {
         });
   
         const rawGeo = await res.text();
-        console.log("🗺️ Resposta bruta da geolocalização:", rawGeo);
   
         const data = JSON.parse(rawGeo);
         const city = data.address.city || data.address.town || data.address.village;
-        console.log("🏙️ Cidade detetada:", city);
+        console.log("Cidade detetada:", city);
         setCidadeAtual(city);
   
         const encodedCity = encodeURIComponent(city);
         const apiUrl = `${API_URL}/barbers/top/${encodedCity}`;
-        console.log("🌐 URL da API backend:", apiUrl);
+        console.log("URL da API backend:", apiUrl);
   
         const backendRes = await fetch(apiUrl);
         const backendRaw = await backendRes.text();
-        console.log("📄 Conteúdo da API backend:", backendRaw);
   
         const json = JSON.parse(backendRaw);
   
@@ -134,7 +131,7 @@ export default function Home() {
         }
   
       } catch (err) {
-        console.error("❌ Erro geral:", err.message || err);
+        console.error("Erro geral:", err.message || err);
         setBarbeariaRecomendada(null);
       }
     };
@@ -150,7 +147,7 @@ export default function Home() {
   };
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity
+      <View
       style={{
         flex: 1,
         margin: SPACING.sm,
@@ -158,7 +155,6 @@ export default function Home() {
         borderRadius: 12,
         padding: SPACING.sm,
       }}
-      onPress={() => router.push(`/barber/${item._id}`)}
     >
       <View style={styles.barberHeader}>
         <View style={styles.userInfo}>
@@ -193,7 +189,7 @@ export default function Home() {
           {t('home.sharedOn')} {formatPublishDate(item.createdAt)}
         </Text>
       </View>
-    </TouchableOpacity>
+    </View>
   );
   
 
@@ -239,11 +235,11 @@ export default function Home() {
           <View>
             {cidadeAtual && (
               <View style={styles.recommendationContainer}>
-                <Text style={styles.headerTitle}>📍 {t('home.yourCity')} {cidadeAtual}</Text>
+                <Text style={styles.headerTitle}> {t('home.yourCity')} {cidadeAtual}</Text>
   
                 {barbeariaRecomendada ? (
                   <>
-                    <Text style={styles.headerSubtitle}>🔝 {t('home.recommendedBarber')}</Text>
+                    <Text style={styles.headerSubtitle}> {t('home.recommendedBarber')}</Text>
   
                     <View style={styles.barberCard}>
                       <Image
@@ -262,7 +258,7 @@ export default function Home() {
                   </>
                 ) : (
                   <Text style={[styles.caption, { marginTop: 8 }]}>
-                    🤷 {t('home.noRecommendationInCity')}
+                     {t('home.noRecommendationInCity')}
                   </Text>
                 )}
   

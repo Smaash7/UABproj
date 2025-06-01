@@ -143,7 +143,7 @@ export default function Profile() {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.background }}>
-      <View style={[styles.container]}>
+    <View style={[styles.container, { backgroundColor: theme.background }]}>
   
       <ProfileHeader onEditPress={() => setEditNameModalVisible(true)} />
       <LogoutButton />

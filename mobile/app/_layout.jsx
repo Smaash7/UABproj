@@ -9,7 +9,7 @@ import { ThemeProvider } from "../context/ThemeContext";
 import Toast from "react-native-toast-message";
 import { I18nextProvider } from "react-i18next";
 import i18n from "../i18n";                     
-import { View } from "react-native"; // ✅ ADICIONA ESTA LINHA
+import { View } from "react-native"; 
 
 
 export default function RootLayout() {
